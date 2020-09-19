@@ -1,0 +1,19 @@
+<div class="container-fluid">
+    <form>
+        <div class="form-group">
+          <label for="nombre">Nombre de la Provincia</label>
+          <input type="text" class="form-control"  [(ngModel)]="provincia.nombre" name="nombre" placeholder="Nombre de la provincia">
+        </div>
+        <div class="form-group">
+          <label for="descripcion">Descripción</label>
+          <input type="text" class="form-control" [(ngModel)]="provincia.descripcion"  name="descripcion" placeholder="Descripción">
+        </div>
+        <div class="form-group">
+            <label for="habitantes">N# Habitantes</label>
+            <input type="number" class="form-control" [(ngModel)]="provincia.habitantes"  name="habitantes" placeholder="Numero de Habitantes">
+          
+        </div>
+        <button  class="btn btn-primary" (click)="edit ? updateP() : saveNewP()">Agregar Provincia</button>
+        <button type="button" class="btn btn-info" routerLink="/provincia">Regresar</button>
+      </form>
+</div>

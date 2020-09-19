@@ -1,0 +1,27 @@
+<div class="content">
+    <a type="button" class="btn btn-success" routerLink="/provincia/add">Ingresar una Nueva Provincia</a>
+</div>
+<div class="content" >
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Numero Habitantes</th>
+            <th scope="col">Elimnar</th>
+            <th scope="col">Actualizar</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let provincia of provincias">
+            <tr>
+                <th scope="row">{{provincia.id}}</th>
+                <td>{{provincia.nombre}}</td>
+                <td>{{provincia.descripcion}}</td>
+                <td>{{provincia.habitantes}}</td>
+                <td><button type="button" class="btn btn-danger" (click)="borrarP(provincia.id)">Eliminar</button></td>
+                <td><button type="button" class="btn btn-dark" [routerLink]="['/provincia/edit/',provincia.id]">Actualizar</button></td>
+              </tr>
+          </tbody>
+      </table> 
+</div>
