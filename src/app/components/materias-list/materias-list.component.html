@@ -1,0 +1,27 @@
+<div class="content">
+    <a type="button" class="btn btn-success" routerLink="/materias/add">Ingresar una Nueva Materia</a>
+</div>
+<div class="content" >
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Horas</th>
+            <th scope="col">Profesor</th>
+            <th scope="col">Elimnar</th>
+            <th scope="col">Actualizar</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let materias of materias">
+            <tr>
+                <th scope="row">{{materias.id}}</th>
+                <td>{{materias.nombre}}</td>
+                <td>{{materias.horas}}</td>
+                <td>{{materias.profesor.nombre}} {{materias.profesor.apellido}}</td>
+                <td><button type="button" class="btn btn-danger" (click)="borrarP(materias.id)">Eliminar</button></td>
+                <td><button type="button" class="btn btn-dark" [routerLink]="['/materias/edit/',materias.id]">Actualizar</button></td>
+              </tr>
+          </tbody>
+      </table> 
+</div>

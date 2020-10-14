@@ -10,12 +10,22 @@ import { ProvinciaFromComponent } from './components/provincia-from/provincia-fr
 import { ProvinciaListComponent } from './components/provincia-list/provincia-list.component';
 
 import {ProvinciaService} from './services/provincia.service';
+import { CantonesFormComponent } from './components/cantones-form/cantones-form.component';
+import { CantonesListComponent } from './components/cantones-list/cantones-list.component';
+import { MateriasFormComponent } from './components/materias-form/materias-form.component';
+import { MateriasListComponent } from './components/materias-list/materias-list.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
     ProvinciaFromComponent,
-    ProvinciaListComponent
+    ProvinciaListComponent,
+    CantonesFormComponent,
+    CantonesListComponent,
+    MateriasFormComponent,
+    MateriasListComponent
+
   ],
   imports: [
     BrowserModule,

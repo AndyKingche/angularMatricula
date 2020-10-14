@@ -1,0 +1,28 @@
+<div class="content">
+    <a type="button" class="btn btn-success" routerLink="/cantones/add">Ingresar un Nuevo Canton</a>
+</div>
+<div class="content" >
+    <table class="table table-responsive">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Provincia</th>
+            <th scope="col">Eliminar</th>
+            <th scope="col">Actualizar</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let cantones of cantones">
+            <tr>
+                <th scope="row">{{cantones.id}}</th>
+                <td>{{cantones.nombre}}</td>
+                <td>{{cantones.descripcion}}</td>
+                <td>{{cantones.provincia.nombre}}</td>
+                <td><button type="button" class="btn btn-danger" (click)="borrarP(cantones.id)">Eliminar</button></td>
+                <td><button type="button" class="btn btn-dark" [routerLink]="['/cantones/edit/',cantones.id]">Actualizar</button></td>
+              </tr>
+          </tbody>
+      </table> 
+</div>
+

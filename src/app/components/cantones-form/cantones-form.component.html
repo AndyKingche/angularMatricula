@@ -1,0 +1,26 @@
+<div class="container-fluid">
+    <form>
+        <div class="form-group">
+          <label for="nombre">Nombre del Canton</label>
+          <input type="text" class="form-control"  [(ngModel)]="cantones.nombre" name="nombre" placeholder="Nombre de la provincia">
+        </div>
+        <div class="form-group">
+          <label for="descripcion">Descripción</label>
+          <input type="text" class="form-control" [(ngModel)]="cantones.descripcion"  name="descripcion" placeholder="Descripción">
+        </div>
+        <div class="form-group">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <label class="input-group-text"  for="provincia"  >Provincias</label>
+                </div>
+                <select  class="custom-select" id="provincia" (change)="onChange($event.target.value)" required >
+                  <option selected >Seleccione...</option>
+                  <option *ngFor="let provincias of provincias"  name="provincia"   value="{{provincias.id}}">{{provincias.nombre}}</option>   
+                </select>
+              </div>
+        </div>
+        <button  class="btn btn-primary" (click)="edit ? updateP() : saveNewP()">Agregar Cantones</button>
+        <button type="button" class="btn btn-info" routerLink="/cantones">Regresar</button>
+      </form>
+</div>
+
