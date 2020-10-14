@@ -10,7 +10,7 @@ import { MateriasListComponent } from './components/materias-list/materias-list.
 const routes: Routes = [{
  path:' ',
  redirectTo:'/provincia',
- pathMatch: 'full S'
+ pathMatch: 'full'
 },{
   path:'provincia',
   component: ProvinciaListComponent
