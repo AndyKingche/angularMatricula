@@ -2,25 +2,25 @@
     <form>
         <div class="form-group">
           <label for="nombre">Nombre dela Materia</label>
-          <input type="text" class="form-control"  [(ngModel)]="materias.nombre" name="nombre" placeholder="Nombre de la provincia">
+          <input type="text" class="form-control"  [(ngModel)]="materias.nombre" name="nombre" placeholder="Nombre de la materia">
         </div>
         <div class="form-group">
-          <label for="horas">Descripción</label>
-          <input type="text" class="form-control" [(ngModel)]="materias.horas"  name="horas" placeholder="Descripción">
+          <label for="horas">Horas</label>
+          <input type="number" class="form-control" [(ngModel)]="materias.horas"  name="horas">
         </div>
         <div class="form-group">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                  <label class="input-group-text"  for="profesor"  >Provincias</label>
+                  <label class="input-group-text"  for="profesor"  >Profesores</label>
                 </div>
-                <!-- <select  class="custom-select" id="profesor" (change)="onChange($event.target.value)" required >
+                <select  class="custom-select" id="profesor" (change)="onChange($event.target.value)" required >
                   <option selected >Seleccione...</option>
-                  <option *ngFor="let profesor of profesor"  name="provincia"   value="{{profesor.id}}">{{profesor.nombre}}</option>   
+                  <option *ngFor="let profesor of profesor"  name="profesor" value="{{profesor.id}}">{{profesor.nombre}} {{profesor.apellido}}</option>   
                 </select>
-              </div> -->
+              </div>
         </div>
-        <button  class="btn btn-primary" (click)="edit ? updateP() : saveNewP()">Agregar Cantones</button>
-        <button type="button" class="btn btn-info" routerLink="/cantones">Regresar</button>
+        <button  class="btn btn-primary" (click)="edit ? updateP() : saveNewP()">Agregar Materia</button>
+        <button type="button" class="btn btn-info" routerLink="/materias">Regresar</button>
       </form>
 </div>
 

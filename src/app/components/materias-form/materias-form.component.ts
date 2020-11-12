@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Materias } from 'src/app/models/Materias';
 import { Profesor } from 'src/app/models/Profesor';
 import { MateriasService } from '../../services/materias.service';
-//import { ProfesorService } from '../../services/profesor.service';
+import { ProfesoresService } from '../../services/profesores.service';
 
 @Component({
   selector: 'app-materias-form',
@@ -18,11 +18,11 @@ export class MateriasFormComponent implements OnInit {
     id: 0,
     nombre: '',
     horas:0,
-    profesor: { id: 0}
+    profesor: { id: 0 }
   }
   edit: boolean = false;
-  //private profseorService : ProfesorService;
-  constructor(private materiasService: MateriasService, private router: Router,private activeroute: ActivatedRoute) { }
+  
+  constructor(private profesorService : ProfesoresService,private materiasService: MateriasService, private router: Router,private activeroute: ActivatedRoute) { }
 
   ngOnInit() {
     const params = this.activeroute.snapshot.params;
@@ -43,7 +43,7 @@ export class MateriasFormComponent implements OnInit {
         err => console.log("hay error "+ err)
       )
     }
-   // this.getProfesores();
+   this.getProfesores();
   }
   saveNewP(){
   
@@ -58,9 +58,10 @@ export class MateriasFormComponent implements OnInit {
             this.materias.profesor={id:0};
             this.materias.horas = 0;
           },
-          err => console.log("err : "+ err)
+          err => console.log("err : "+ this.materias.horas)
         );
       }
+
       onChange(deviceValue) {
        this.selectDivece= deviceValue;
     }
@@ -77,13 +78,14 @@ export class MateriasFormComponent implements OnInit {
       )
       console.log(this.materias);
     }
-    // getProvincia(){
-    //   this.profesorService.getProfesores().subscribe(
-    //     res => {
-    //       this.profesor = res },
-    //     err => console.error(err)
-    //   )
-    // }
+    getProfesores(){
+      this.profesorService.getProfesores().subscribe(
+        res => {
+          this.profesor = res;
+          },
+        err => console.error(err)
+      )
+    }
 
 
 }

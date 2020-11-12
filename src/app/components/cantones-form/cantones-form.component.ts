@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit, ɵConsole } from '@angular/core';
+import { Component, ElementRef, HostBinding, OnInit, ViewChild, ɵConsole } from '@angular/core';
 import { Cantones } from 'src/app/models/Cantones';
 import {ActivatedRoute, Router } from '@angular/router';
 import { CantonesService } from '../../services/cantones.service';
@@ -8,6 +8,9 @@ import { $ } from 'protractor';
 import { Provincia } from 'src/app/models/Provincia';
 import { ProvinciaFromComponent } from '../provincia-from/provincia-from.component';
 import { NgSelectOption } from '@angular/forms';
+import { Reference } from '@angular/compiler/src/render3/r3_ast';
+import { HAMMER_LOADER } from '@angular/platform-browser';
+import * as jQuery from 'jquery'; 
 
 
 @Component({
@@ -28,7 +31,7 @@ export class CantonesFormComponent implements OnInit {
   edit: boolean = false;
 
   constructor( private provinciaService: ProvinciaService,private cantonesService: CantonesService, private router: Router,private activeroute: ActivatedRoute) { }
-
+   
   ngOnInit() {
     const params = this.activeroute.snapshot.params;
     console.log(params);
@@ -49,6 +52,7 @@ export class CantonesFormComponent implements OnInit {
       )
     }
     this.getProvincia();
+
   }
   saveNewP(){
   

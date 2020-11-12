@@ -1,4 +1,4 @@
-export interface Profesor {
+export interface Alumnos {
     id?: number;
     nombre?: string;
     apellido?: string;
@@ -7,5 +7,7 @@ export interface Profesor {
     edad?: number;
     direccion?:string;
     telefono?:string;
-    titulo?:string; 
+    grado?:string;
+    numeromatricula?:number; 
+    provincia?: {id: number};
 }

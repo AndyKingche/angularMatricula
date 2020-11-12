@@ -1,6 +1,6 @@
-export interface Cantones {
+export interface Tipo {
     id?: number;
     nombre?: string;
     descripcion?: string;
-    provincia?: {id: number};
+    
 }

@@ -1,0 +1,20 @@
+<div class="content"> 
+    <div class="accordion" id="accordionExample">
+        <div class="card" *ngFor = "let tipo of tipo">
+          <div class="card-header" id="headingOne">
+            <h2 class="mb-0">
+              <button name="titulo" value="{{tipo.id}}" onlcick="obtenerCat(tipo.id)" class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                {{tipo.nombre}}
+              </button>
+            </h2>
+          </div>
+      
+          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body" *ngFor=" let categoria of categoria">
+              {{categoria.tipo.id}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+</div>

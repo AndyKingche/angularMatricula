@@ -1,0 +1,36 @@
+<div class="content table-responsive">
+    <a type="button" class="btn btn-success" routerLink="/profesores/add">Ingresar Nuevo Profesor</a>
+</div>
+<div class="content table-responsive" >
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Cedula</th>
+            <th scope="col">Fecha de Nacimiento</th>
+            <th scope="col">Edad</th>
+            <th scope="col">Direccion</th>
+            <th scope="col">Telefono</th>
+            <th scope="col">Titulo</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let profesores of profesores">
+            <tr>
+                <th scope="row">{{profesores.id}}</th>
+                <td>{{profesores.nombre}}</td>
+                <td>{{profesores.apellido}}</td>
+                <td>{{profesores.cedula}}</td>
+                <td>{{profesores.fechanacimiento}}</td>
+                <td>{{profesores.edad}}</td>
+                <td>{{profesores.direccion}}</td>
+                <td>{{profesores.telefono}}</td>
+                <td>{{profesores.titulo}}</td>
+                <td><button type="button" class="btn btn-danger" (click)="borrarP(profesores.id)">Eliminar</button></td>
+                <td><button type="button" class="btn btn-dark" [routerLink]="['/profesores/edit/',profesores.id]">Actualizar</button></td>
+              </tr>
+          </tbody>
+      </table> 
+</div>
+

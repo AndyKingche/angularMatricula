@@ -1,0 +1,41 @@
+<div class="content">
+    <a type="button" class="btn btn-success" routerLink="/alumnos/add">Ingresar Estudiante</a>
+</div>
+<div class="content" >
+    <table class="table table-responsive">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Provincia</th>
+            <th scope="col">Cedula</th>
+            <th scope="col">Fecha de Nacimiento</th>
+            <th scope="col">Edad</th>
+            <th scope="col">Direccion</th>
+            <th scope="col">Telefono</th>
+            <th scope="col">Grado</th>
+            <th scope="col">N# de matricula</th>
+            <th scope="col">Eliminar</th>
+            <th scope="col">Actualizar</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let alumnos of alumnos">
+            <tr>
+                <th scope="row">{{alumnos.id}}</th>
+                <td>{{alumnos.nombre}}</td>
+                <td>{{alumnos.apellido}}</td>
+                <td>{{alumnos.provincia.nombre}}</td>
+                <td>{{alumnos.cedula}}</td>
+                <td>{{alumnos.fechanacimiento}}</td>
+                <td>{{alumnos.edad}}</td>
+                <td>{{alumnos.direccion}}</td>
+                <td>{{alumnos.telefono}}</td>
+                <td>{{alumnos.grado}}</td>
+                <td>{{alumnos.numeromatricula}}</td>
+                <td><button type="button" class="btn btn-danger" (click)="borrarP(alumnos.id)">Eliminar</button></td>
+                <td><button type="button" class="btn btn-dark" [routerLink]="['/alumnos/edit/',alumnos.id]">Actualizar</button></td>
+              </tr>
+          </tbody>
+      </table> 
+</div>
