@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpRequest } from '@angular/common/http';
 import { Alumnos } from '../models/Alumnos';
 import { Observable } from 'rxjs';
 
@@ -8,9 +8,14 @@ import { Observable } from 'rxjs';
 })
 export class AlumnosService {
   API_URI = 'api/alumnos';
-  constructor( private http: HttpClient ) { }
+  
+  constructor( private http: HttpClient) { 
+    
+  }
   getAlumnos(){
+    
     return this.http.get(`${this.API_URI}`);
+    
   }
   getAlumno(id: number){
     return this.http.get(`${this.API_URI}/${id}`)
@@ -24,5 +29,9 @@ export class AlumnosService {
   }
   updateAlumno(id: number, alumnos : Alumnos){
     return this.http.put(`${this.API_URI}/${id}`,alumnos);
+  }
+  encontrarAlumno(name: string){
+    
+    return this.http.get(`${this.API_URI}/find/${name}`);
   }
 }

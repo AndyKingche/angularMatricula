@@ -1,16 +1,17 @@
-<div class="content">
-    <a type="button" class="btn btn-success" routerLink="/provincia/add">Ingresar una Nueva Provincia</a>
-</div>
-<div class="content" >
-    <table class="table table-hover">
+
+  <div class="container">
+    <div class="justify-content-center"> <a type="button" class="btn btn-success" routerLink="/provincia/add"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+    </svg>Nueva Provincia</a> </div>
+    <table class="table table-responsive">
         <thead>
           <tr>
             <th scope="col">#</th>
             <th scope="col">Nombre</th>
             <th scope="col">Descripcion</th>
             <th scope="col">Numero Habitantes</th>
-            <th scope="col">Elimnar</th>
-            <th scope="col">Actualizar</th>
+            <th scope="col"> </th>
+            <th scope="col"> </th>
           </tr>
         </thead>
         <tbody *ngFor="let provincia of provincias">
@@ -19,8 +20,13 @@
                 <td>{{provincia.nombre}}</td>
                 <td>{{provincia.descripcion}}</td>
                 <td>{{provincia.habitantes}}</td>
-                <td><button type="button" class="btn btn-danger" (click)="borrarP(provincia.id)">Eliminar</button></td>
-                <td><button type="button" class="btn btn-dark" [routerLink]="['/provincia/edit/',provincia.id]">Actualizar</button></td>
+                <td><button type="button" class="btn btn-danger" title="Eliminar" (click)="borrarP(provincia.id)"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
+                </svg></button></td>
+                <td><button type="button" class="btn btn-info" title="Actualizar" [routerLink]="['/provincia/edit/',provincia.id]"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-counterclockwise" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
+                  <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
+                </svg></button></td>
               </tr>
           </tbody>
       </table> 

@@ -22,6 +22,7 @@ import { AlumnosFormComponent } from './components/alumnos-form/alumnos-form.com
 import { AlumnosListComponent } from './components/alumnos-list/alumnos-list.component';
 import { TipoCategoriaFormComponent } from './components/tipo-categoria-form/tipo-categoria-form.component';
 import { TipoCategoriaListComponent } from './components/tipo-categoria-list/tipo-categoria-list.component';
+import { NgSelect2Module } from 'ng-select2';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { TipoCategoriaListComponent } from './components/tipo-categoria-list/tip
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgSelect2Module
   ],
   providers: [ProvinciaService],
   bootstrap: [AppComponent]

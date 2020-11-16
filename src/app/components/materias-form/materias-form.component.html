@@ -13,7 +13,7 @@
                 <div class="input-group-prepend">
                   <label class="input-group-text"  for="profesor"  >Profesores</label>
                 </div>
-                <select  class="custom-select" id="profesor" (change)="onChange($event.target.value)" required >
+                <select  width="200px" height="200px"  class="js-example-basic-single" id="profesor" required >
                   <option selected >Seleccione...</option>
                   <option *ngFor="let profesor of profesor"  name="profesor" value="{{profesor.id}}">{{profesor.nombre}} {{profesor.apellido}}</option>   
                 </select>

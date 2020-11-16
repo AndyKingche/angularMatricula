@@ -4,6 +4,7 @@ import { Materias } from 'src/app/models/Materias';
 import { Profesor } from 'src/app/models/Profesor';
 import { MateriasService } from '../../services/materias.service';
 import { ProfesoresService } from '../../services/profesores.service';
+declare let $: any;
 
 @Component({
   selector: 'app-materias-form',
@@ -44,11 +45,11 @@ export class MateriasFormComponent implements OnInit {
       )
     }
    this.getProfesores();
+   $('.js-example-basic-single').select2();
   }
   saveNewP(){
-  
-    this.materias.profesor.id = +this.selectDivece;
-    
+    let opcion=$('select').val();
+    this.materias.profesor.id = opcion;
         this.materiasService.saveMateria(this.materias).subscribe(
     
           res => {
@@ -66,7 +67,8 @@ export class MateriasFormComponent implements OnInit {
        this.selectDivece= deviceValue;
     }
     updateP(){
-      this.materias.profesor.id = +this.selectDivece;
+      let opcion=$('select').val();
+      this.materias.profesor.id = opcion;
       this.materiasService.updateMateria(this.materias.id,this.materias).subscribe(
         res => {
           console.log("res: "+res);

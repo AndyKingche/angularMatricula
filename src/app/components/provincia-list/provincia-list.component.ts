@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Provincia } from '../../models/Provincia';
 import { ProvinciaService } from '../../services/provincia.service';
 
+
 @Component({
   selector: 'app-provincia-list',
   templateUrl: './provincia-list.component.html',
@@ -9,12 +10,14 @@ import { ProvinciaService } from '../../services/provincia.service';
 })
 export class ProvinciaListComponent implements OnInit {
   provincias : any = [];
-
+  
   constructor(private provinciaService: ProvinciaService) { }
 
   ngOnInit() {
    this.getProvincia();
+ 
   }
+  
   getProvincia(){
     this.provinciaService.getProvincias().subscribe(
       res => {
@@ -22,6 +25,7 @@ export class ProvinciaListComponent implements OnInit {
       err => console.error(err)
     )
   }
+
   borrarP(id:number){
     this.provinciaService.deleteProvincia(id).subscribe(
       res => {

@@ -1,7 +1,29 @@
-<div class="content">
-    <a type="button" class="btn btn-success" routerLink="/alumnos/add">Ingresar Estudiante</a>
+
+<div class="container">
+  <a type="button" class="btn btn-success" routerLink="/alumnos/add"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+  </svg>Nuevo Alumno</a>
 </div>
-<div class="content" >
+<form>
+  <div class="form-row align-items-center">
+    <div class="col-auto">
+      <label class="sr-only" for="inlineFormInputGroup">Nombre</label>
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+            <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+          </svg></div>
+        </div>
+        <input type="text" [(ngModel)]="alumnosBuscar.nombre" class="form-control" id="alumnosBuscar" name="alumnosBuscar" placeholder="Nombre" (input)="onSearchChange($event.target.value)" >
+      </div>
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-primary mb-2" (click)="buscarAlumno(alumnosBuscar.nombre)">Buscar</button>
+    </div>
+  </div>
+</form>
+<div class="container" >
     <table class="table table-responsive">
         <thead>
           <tr>
@@ -16,8 +38,8 @@
             <th scope="col">Telefono</th>
             <th scope="col">Grado</th>
             <th scope="col">N# de matricula</th>
-            <th scope="col">Eliminar</th>
-            <th scope="col">Actualizar</th>
+            <th scope="col"> </th>
+            <th scope="col"> </th>
           </tr>
         </thead>
         <tbody *ngFor="let alumnos of alumnos">
@@ -33,8 +55,13 @@
                 <td>{{alumnos.telefono}}</td>
                 <td>{{alumnos.grado}}</td>
                 <td>{{alumnos.numeromatricula}}</td>
-                <td><button type="button" class="btn btn-danger" (click)="borrarP(alumnos.id)">Eliminar</button></td>
-                <td><button type="button" class="btn btn-dark" [routerLink]="['/alumnos/edit/',alumnos.id]">Actualizar</button></td>
+                <td><button type="button" class="btn btn-danger" (click)="borrarP(alumnos.id)"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
+                </svg></button></td>
+                <td><button type="button" class="btn btn-info" [routerLink]="['/alumnos/edit/',alumnos.id]"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-counterclockwise" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
+                  <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
+                </svg></button></td>
               </tr>
           </tbody>
       </table> 

@@ -41,13 +41,13 @@
                 <div class="input-group-prepend">
                   <label class="input-group-text"  for="provincia"  >Provincias</label>
                 </div>
-                <select  class="custom-select" id="provincia" (change)="onChange($event.target.value)" required >
+                <select width="200px" height="200px" class="js-example-basic-single" id="provincia"   required >
                   <option selected >Seleccione...</option>
-                  <option *ngFor="let provincias of provincias"  name="provincia"   value="{{provincias.id}}">{{provincias.nombre}}</option>   
+                  <option *ngFor="let provincias of provincias"  name="provincia" value="{{provincias.id}}">{{provincias.nombre}}</option>   
                 </select>
-              </div>
+                 </div>
         </div>
-        <button  class="btn btn-primary" (click)="edit ? updateP() : saveNewP()">Agregar Provincia</button>
+        <button  class="btn btn-primary" (click)="edit ? updateP() : saveNewP()">Agregar Estudiante</button>
         <button type="button" class="btn btn-info" routerLink="/alumnos">Regresar</button>
       </form>
 </div>

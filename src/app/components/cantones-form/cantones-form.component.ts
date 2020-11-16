@@ -4,13 +4,12 @@ import {ActivatedRoute, Router } from '@angular/router';
 import { CantonesService } from '../../services/cantones.service';
 import { ProvinciaService } from '../../services/provincia.service'
 import { SelectorContext } from '@angular/compiler';
-import { $ } from 'protractor';
 import { Provincia } from 'src/app/models/Provincia';
 import { ProvinciaFromComponent } from '../provincia-from/provincia-from.component';
 import { NgSelectOption } from '@angular/forms';
 import { Reference } from '@angular/compiler/src/render3/r3_ast';
 import { HAMMER_LOADER } from '@angular/platform-browser';
-import * as jQuery from 'jquery'; 
+declare let $: any;
 
 
 @Component({
@@ -52,14 +51,13 @@ export class CantonesFormComponent implements OnInit {
       )
     }
     this.getProvincia();
-
+    $('.js-example-basic-single').select2();
   }
   saveNewP(){
-  
-this.cantones.provincia.id = +this.selectDivece;
-
+    let opcion=$('select').val();
+    this.cantones.provincia.id = opcion;
+    console.log(",,,",this.cantones.provincia.id)
     this.cantonesService.saveCantones(this.cantones).subscribe(
-
       res => {
         console.log("res : "+ res);
         //this.router.navigate(['/provincia']);
@@ -70,11 +68,10 @@ this.cantones.provincia.id = +this.selectDivece;
       err => console.log("err : "+ err)
     );
   }
-  onChange(deviceValue) {
-   this.selectDivece= deviceValue;
-}
+
   updateP(){
-    this.cantones.provincia.id = +this.selectDivece;
+    let opcion=$('select').val();
+    this.cantones.provincia.id = opcion;
     this.cantonesService.updateCantones(this.cantones.id,this.cantones).subscribe(
       res => {
         console.log("res: "+res);
