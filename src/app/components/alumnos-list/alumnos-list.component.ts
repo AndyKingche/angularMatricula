@@ -34,7 +34,8 @@ export class AlumnosListComponent implements OnInit {
   onSearchChange(searchValue: string): void {  
     console.log("datos ingresados "+searchValue);
     if(searchValue.length != 0){
-      this.buscarAlumno(searchValue);
+      this.alumnosBuscar.nombre = searchValue;
+      this.buscarAlumno();
     }else{
      
       this.getAlumnos();
@@ -53,9 +54,9 @@ export class AlumnosListComponent implements OnInit {
 
   }
 
-  buscarAlumno(nombre:string){
-    if(nombre.length != 0){
-      this.alumnosService.encontrarAlumno(nombre).subscribe(
+  buscarAlumno(){
+    if(this.alumnosBuscar.nombre.length != 0){
+      this.alumnosService.encontrarAlumno(this.alumnosBuscar.nombre).subscribe(
         res=>{ 
           this.alumnos = res,
           console.log("--", this.alumnos)

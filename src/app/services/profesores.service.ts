@@ -26,5 +26,8 @@ export class ProfesoresService {
   updateProfesor(id: number, profesor : Profesor){
     return this.http.put(`${this.API_URI}/${id}`,profesor);
   }
+  encontrarProfesor(name: string){
+    return this.http.get(`${this.API_URI}/find/${name}`);
+  }
 
 }
