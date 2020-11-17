@@ -6,9 +6,10 @@ import { ProvinciaService } from '../../services/provincia.service'
 import { SelectorContext } from '@angular/compiler';
 import { Provincia } from 'src/app/models/Provincia';
 import { ProvinciaFromComponent } from '../provincia-from/provincia-from.component';
-import { NgSelectOption } from '@angular/forms';
+import { FormsModule, NgSelectOption } from '@angular/forms';
 import { Reference } from '@angular/compiler/src/render3/r3_ast';
 import { HAMMER_LOADER } from '@angular/platform-browser';
+
 declare let $: any;
 
 
@@ -20,6 +21,7 @@ declare let $: any;
 export class CantonesFormComponent implements OnInit {
   @HostBinding('class') classes = 'row';
   provincias :  Provincia;
+  provinciaescogida : any =[];
   selectDivece : string;
   cantones : Cantones ={
     nombre: '',
@@ -40,8 +42,17 @@ export class CantonesFormComponent implements OnInit {
           if(res!= null){
             console.log(res);
             this.cantones = res; // luego ponemos eso
+            console.log("---"+this.cantones.provincia.id);
+            this.provinciaService.getProvincia(this.cantones.provincia.id).subscribe(
+              res => {
+                this.provinciaescogida = res
+                console.log("---"+this.provinciaescogida.nombre);
+                $("#provincias > option[value='"+ this.provinciaescogida.id +"']").attr('selected', 'selected').change();
+                
+              },
+              err => console.log("error "+err)
+            );
             this.edit = true;
-
           }else{
             this.router.navigate(['/cantones']);
           }
@@ -52,6 +63,9 @@ export class CantonesFormComponent implements OnInit {
     }
     this.getProvincia();
     $('.js-example-basic-single').select2();
+
+    
+    
   }
   saveNewP(){
     let opcion=$('select').val();

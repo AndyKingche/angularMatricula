@@ -31,17 +31,20 @@ export class AlumnosListComponent implements OnInit {
       err => console.error(err)
     )
   }
-  onSearchChange(searchValue: string): void {  
-    console.log("datos ingresados "+searchValue);
-    if(searchValue.length != 0){
-      this.alumnosBuscar.nombre = searchValue;
-      this.buscarAlumno();
-    }else{
-     
+  // onSearchChange(e): void {  
+  //   console.log("datos ingresados "+e.which);
+  //   if(e.which == 13 ){
+  //     this.buscarAlumno();
+  //   }else{
+  //     this.getAlumnos();
+  //   } 
+  // }
+  OnInitVacio(vacio:string):void{
+    if(vacio.length == 0){
       this.getAlumnos();
     }
-   
   }
+
   borrarP(id:number){
     this.alumnosService.deleteAlumno(id).subscribe(
       res => {

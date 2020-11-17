@@ -13,6 +13,7 @@ import { connectableObservableDescriptor } from 'rxjs/internal/observable/Connec
 export class TipoCategoriaListComponent implements OnInit {
 
   tipo : any = [];
+  x = Array();
   categoria : Categoria ={
 
     nombre: ' ',
@@ -35,7 +36,7 @@ export class TipoCategoriaListComponent implements OnInit {
    this.tipoService.getTipos().subscribe(
       res => { 
         this.tipo = res,
-     
+        this.x.push(res)
         this.categoriaService.getCategorias().subscribe(
           res1 => {
             this.categoria = res1

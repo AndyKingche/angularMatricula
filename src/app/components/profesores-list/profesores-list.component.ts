@@ -19,16 +19,19 @@ export class ProfesoresListComponent implements OnInit {
     this.getProfesores();
   
   }
-  onSearchChange(searchValue: string): void {  
-    console.log("datos ingresados "+searchValue);
-    if(searchValue.length != 0){
-      this.profesoresBuscar.nombre = searchValue;
-      this.buscarProfesor();
-    }else{
-     
+  // onSearchChange(e): void {  
+  //   console.log("datos ingresados "+e);
+  //   if(e.which == 13){
+  //     this.buscarProfesor();
+  //   }else{
+  //     this.getProfesores();
+  //   }
+   
+  // }
+  onInputVacio(vacio: string):void{
+    if(vacio.length ==0){
       this.getProfesores();
     }
-   
   }
   getProfesores(){
     this.profesoresService.getProfesores().subscribe(
