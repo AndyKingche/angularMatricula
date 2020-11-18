@@ -26,5 +26,8 @@ export class TipoService {
   updateTipo(id: number, tipo : Tipo){
     return this.http.put(`${this.API_URI}/${id}`,tipo);
   }
+  encontrarCategoria(id:number){
+    return this.http.get(`${this.API_URI}/find/${id}`);
+  }
 
 }

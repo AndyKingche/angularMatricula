@@ -50,6 +50,7 @@ export class ProvinciaFromComponent implements OnInit {
         this.provincia.nombre=' ';
         this.provincia.habitantes = 0;
         this.provincia.descripcion = ' ';
+     
       },
       err => console.log("err : "+ err)
     );

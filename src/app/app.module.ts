@@ -24,6 +24,7 @@ import { TipoCategoriaFormComponent } from './components/tipo-categoria-form/tip
 import { TipoCategoriaListComponent } from './components/tipo-categoria-list/tipo-categoria-list.component';
 import { NgSelect2Module } from 'ng-select2';
 
+
 @NgModule({
   declarations: [
     AppComponent,

@@ -1,57 +1,48 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { resolve } from 'url';
 import { CategoriaService } from '../../services/categoria.service';
 import { TipoService } from '../../services/tipo.service';
 import { Categoria } from '../../models/Categoria';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
-
+import { Tipo } from 'src/app/models/Tipo';
+declare let $: any;
 @Component({
   selector: 'app-tipo-categoria-list',
   templateUrl: './tipo-categoria-list.component.html',
   styleUrls: ['./tipo-categoria-list.component.css']
 })
 export class TipoCategoriaListComponent implements OnInit {
-
-  tipo : any = [];
-  x = Array();
-  categoria : Categoria ={
-
-    nombre: ' ',
-    descripcion: ' ',
-    tipo: {id: 0}
-  };
-  categorias : any = [];
+  @Input() public lead: Tipo;
+  @Input() public index;
+  public nombrecollpase : string;
+  tipo : any =[];
+  lista = Array();
+  categorias : any=[];
 
   constructor(private tipoService : TipoService , private categoriaService : CategoriaService) { }
 
   ngOnInit() {
 
-    this.getTipoCat();
-  let x = document.getElementsByName("titulo")[0];
-  console.log(""+x);
+    this.getTipoCat(); 
   }
 
   getTipoCat(){
-
-   this.tipoService.getTipos().subscribe(
-      res => { 
-        this.tipo = res,
-        this.x.push(res)
-        this.categoriaService.getCategorias().subscribe(
-          res1 => {
-            this.categoria = res1
-          },
-    
-          err => console.error(err)
-        );
-       
-      },
-      err => console.error(err)
-    );
-      
+    this.categoriaService.getCategorias().subscribe(
+      res=>{this.categorias = res
+        for(let x in this.categorias){
+          this.nombrecollpase = x;
+        }
+      },err=>console.log("err",err)
+    );    
   }
-  obtenerCat(x: String){
-    console.log("kkk"+x )
+  obtenerTipo(id: number){
+    console.log("este es el id"+ id)
+    this.tipoService.encontrarCategoria(id).subscribe(
+      res=>{
+        this.tipo = res
+        console.log("",this.tipo)
+    },err=>console.error("err",err)
+    );
   }
 
 
