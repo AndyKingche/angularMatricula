@@ -1,4 +1,4 @@
-<div class="just-padding">
+<!-- <div class="just-padding">
 
   <div class="list-group list-group-root well" >
     <div *ngFor="let categorias of categorias">
@@ -16,4 +16,29 @@
 
   </div>
     
+  </div> -->
+  <div class="accordion" id="accordionExample">
+    <div class="card" *ngFor="let categorias of categorias">
+        <div class="card-header" [attr.id]="'heading'+categorias.id">
+          <h2 class="mb-0">
+            <button class="btn btn-link btn-block text-left" (click)="obtenerTipo(categorias.id)" type="button" data-toggle="collapse" [attr.data-target]="'#collapse'+categorias.id" aria-expanded="false" [attr.aria-controls]="'collapse'+categorias.id">
+              {{categorias.nombre}}
+            </button>
+          </h2>
+        </div>
+    
+        <div [attr.id]="'collapse'+categorias.id" class="collapse" aria-labelledby="'heading'+categorias.id" data-parent="#accordionExample">
+          <div class="card-body">
+            <a  class="list-group-item" *ngFor="let tipo of tipo" >
+              <i class="glyphicon glyphicon-chevron-right"></i>{{tipo.nombre}}
+            </a>
+          </div>
+        </div>
+       
+  
+    
+    
+    
+    </div>
+ 
   </div>

@@ -24,6 +24,7 @@ export class TipoCategoriaListComponent implements OnInit {
   ngOnInit() {
 
     this.getTipoCat(); 
+    
   }
 
   getTipoCat(){
@@ -35,6 +36,7 @@ export class TipoCategoriaListComponent implements OnInit {
       },err=>console.log("err",err)
     );    
   }
+
   obtenerTipo(id: number){
     console.log("este es el id"+ id)
     this.tipoService.encontrarCategoria(id).subscribe(
@@ -43,6 +45,8 @@ export class TipoCategoriaListComponent implements OnInit {
         console.log("",this.tipo)
     },err=>console.error("err",err)
     );
+    this.tipo = [];
+    
   }
 
 
