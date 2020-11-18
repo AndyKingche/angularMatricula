@@ -1,0 +1,19 @@
+<div class="just-padding">
+
+  <div class="list-group list-group-root well" >
+    <div *ngFor="let categorias of categorias">
+      <a [attr.href]="'#'+'categoria'+categorias.id" (click)="obtenerTipo(categorias.id)" class="list-group-item" data-toggle="collapse">
+        <i class="glyphicon glyphicon-chevron-right"></i>{{categorias.nombre}}
+      </a>
+      <div class="list-group collapse" [attr.id]="'categoria'+categorias.id">
+        <a  class="list-group-item" *ngFor="let tipo of tipo" >
+          <i class="glyphicon glyphicon-chevron-right"></i>{{tipo.nombre}}
+        </a>
+      </div>
+    </div>
+    
+   
+
+  </div>
+    
+  </div>
