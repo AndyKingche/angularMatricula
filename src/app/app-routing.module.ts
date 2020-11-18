@@ -80,6 +80,11 @@ component: AlumnosFormComponent
 {
   path: 'tipo-categoria',
   component: TipoCategoriaListComponent
+},
+
+{
+  path: 'tipo-categoria/add',
+  component: TipoCategoriaFormComponent
 }
 
 ];

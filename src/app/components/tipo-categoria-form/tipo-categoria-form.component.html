@@ -1,1 +1,4 @@
-<p>tipo-categoria-form works!</p>
+<input (input) = "obtenerValor($event.target.value,i)" *ngFor = "let tipo of tipo_categoria.tipo; let i = index" [(ngModel)]="tipo_categoria.tipo[i]" type="text">
+<button [disabled] = "buttonValido" (click) = "tipoAumentar(i)" >tipo</button>
+<button (click) = "obtenerDatos()">Ingresar</button>
+
