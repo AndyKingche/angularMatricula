@@ -5,6 +5,7 @@ import { TipoService } from '../../services/tipo.service';
 import { Categoria } from '../../models/Categoria';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 import { Tipo } from 'src/app/models/Tipo';
+import { ɵAnimationGroupPlayer } from '@angular/animations';
 declare let $: any;
 @Component({
   selector: 'app-tipo-categoria-list',
