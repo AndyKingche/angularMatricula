@@ -31,14 +31,7 @@ export class AlumnosListComponent implements OnInit {
       err => console.error(err)
     )
   }
-  // onSearchChange(e): void {  
-  //   console.log("datos ingresados "+e.which);
-  //   if(e.which == 13 ){
-  //     this.buscarAlumno();
-  //   }else{
-  //     this.getAlumnos();
-  //   } 
-  // }
+
   OnInitVacio(vacio:string):void{
     if(vacio.length == 0){
       this.getAlumnos();
@@ -66,8 +59,6 @@ export class AlumnosListComponent implements OnInit {
         },
         err => console.log("error "+err)
       )
-    }else{
-      this.getAlumnos();
     }
 
   }

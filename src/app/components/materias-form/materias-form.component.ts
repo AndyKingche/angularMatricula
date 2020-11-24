@@ -15,6 +15,7 @@ export class MateriasFormComponent implements OnInit {
   @HostBinding('class') classes = 'row';
   profesor: Profesor;
   selectDivece : string;
+  profesorEscogido: any=[];
   materias : Materias = {
     id: 0,
     nombre: '',
@@ -34,6 +35,15 @@ export class MateriasFormComponent implements OnInit {
           if(res!= null){
             console.log(res);
             this.materias = res; // luego ponemos eso
+            this.profesorService.getProfesor(this.materias.profesor.id).subscribe(
+              res => {this.profesorEscogido = res
+                $('.js-example-placeholder-single').select2({
+                  placeholder: this.profesorEscogido.nombre,
+                  allowClear:true 
+                });
+              },
+              err => console.error("error en el ngOnInit al obtener el id profesor"+err)
+            );
             this.edit = true;
 
           }else{
@@ -45,7 +55,11 @@ export class MateriasFormComponent implements OnInit {
       )
     }
    this.getProfesores();
-   $('.js-example-basic-single').select2();
+   $('.js-example-placeholder-single').select2({
+     placeholder: "Seleccione una opcion....",
+     allowClear:true
+   });
+
   }
   saveNewP(){
     let opcion=$('select').val();

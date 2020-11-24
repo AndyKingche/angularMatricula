@@ -27,4 +27,8 @@ export class CategoriaService {
   updateCategoria(id: number, categoria : Categoria){
     return this.http.put(`${this.API_URI}/${id}`,categoria);
   }
+  encontrarCategoriaNombre(name:string){
+
+    return this.http.get(`${this.API_URI}/find/${name}`);
+  }
 }

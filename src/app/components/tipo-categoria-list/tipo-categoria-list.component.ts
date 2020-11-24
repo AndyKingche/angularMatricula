@@ -16,24 +16,24 @@ export class TipoCategoriaListComponent implements OnInit {
   @Input() public lead: Tipo;
   @Input() public index;
   public nombrecollpase : string;
+  numeroTipo : any=[];
   tipo : any =[];
   lista = Array();
   categorias : any=[];
+  buscarCategoria: string;
 
   constructor(private tipoService : TipoService , private categoriaService : CategoriaService) { }
 
   ngOnInit() {
 
-    this.getTipoCat(); 
-    
+    this.getCat(); 
+    this.buscarCategoria = '';
   }
 
-  getTipoCat(){
+  getCat(){
     this.categoriaService.getCategorias().subscribe(
       res=>{this.categorias = res
-        for(let x in this.categorias){
-          this.nombrecollpase = x;
-        }
+    
       },err=>console.log("err",err)
     );    
   }
@@ -43,11 +43,30 @@ export class TipoCategoriaListComponent implements OnInit {
     this.tipoService.encontrarCategoria(id).subscribe(
       res=>{
         this.tipo = res
-        console.log("",this.tipo)
+        console.log("",this.tipo);
+      
     },err=>console.error("err",err)
     );
     this.tipo = [];
     
+  }
+
+  buscarCategoriaNombre(){
+    if(this.buscarCategoria.length !=0 ){
+      this.categoriaService.encontrarCategoriaNombre(this.buscarCategoria).subscribe(
+        res=>{
+          this.categorias=res
+        },
+        err=>console.error("error en buscar categoria por nombre"+ err)
+      );
+
+    }
+  }
+
+  vacio(esVacio:any){
+    if(esVacio.length ==0){
+      this.getCat();
+    }
   }
 
 

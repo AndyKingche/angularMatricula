@@ -21,7 +21,7 @@ declare let $: any;
 export class CantonesFormComponent implements OnInit {
   @HostBinding('class') classes = 'row';
   provincias :  Provincia;
-  provinciaescogida : any =[];
+  provinciaEscogida : any =[];
   selectDivece : string;
   cantones : Cantones ={
     nombre: '',
@@ -45,9 +45,12 @@ export class CantonesFormComponent implements OnInit {
             console.log("---"+this.cantones.provincia.id);
             this.provinciaService.getProvincia(this.cantones.provincia.id).subscribe(
               res => {
-                this.provinciaescogida = res
-                console.log("---"+this.provinciaescogida.nombre);
-                $("#provincias > option[value='"+ this.provinciaescogida.id +"']").attr('selected', 'selected').change();
+                this.provinciaEscogida = res
+                console.log("---"+this.provinciaEscogida.nombre);
+                $('.js-example-placeholder-single').select2({
+                  placeholder: this.provinciaEscogida.nombre,
+                  allowClear:true
+                });
                 
               },
               err => console.log("error "+err)
@@ -62,7 +65,10 @@ export class CantonesFormComponent implements OnInit {
       )
     }
     this.getProvincia();
-    $('.js-example-basic-single').select2();
+    $('.js-example-placeholder-single').select2({
+      placeholder: "Seleccione una opcion....",
+      allowClear:true
+    });
 
     
     

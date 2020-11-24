@@ -29,5 +29,7 @@ export class TipoService {
   encontrarCategoria(id:number){
     return this.http.get(`${this.API_URI}/find/${id}`);
   }
-
+  numeroTipo(id:number){
+    return this.http.get(`${this.API_URI}/number/${id}`);
+  }
 }

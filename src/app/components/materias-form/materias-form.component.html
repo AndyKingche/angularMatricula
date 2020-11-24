@@ -13,8 +13,8 @@
                 <div class="input-group-prepend">
                   <label class="input-group-text"  for="profesor"  >Profesores</label>
                 </div>
-                <select  width="200px" height="200px"  class="js-example-basic-single" id="profesor" required >
-                  <option selected >Seleccione...</option>
+                <select  width="200px" height="200px"  class="js-example-placeholder-single js-states form-control" id="profesores" name="profesores" required >
+                  <option [attr.selected]="profesorEscogido.id" [attr.value]="profesorEscogido.id" ></option>
                   <option *ngFor="let profesor of profesor"  name="profesor" value="{{profesor.id}}">{{profesor.nombre}} {{profesor.apellido}}</option>   
                 </select>
               </div>
