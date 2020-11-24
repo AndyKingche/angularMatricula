@@ -1,4 +1,60 @@
-<input (input) = "obtenerValor($event.target.value,i)" *ngFor = "let tipo of tipo_categoria.tipo; let i = index" [(ngModel)]="tipo_categoria.tipo[i]" type="text">
-<button [disabled] = "buttonValido" (click) = "tipoAumentar(i)" >tipo</button>
-<button (click) = "obtenerDatos()">Ingresar</button>
-
+<div class="container-fluid">
+    <form [formGroup]="formCategoria" (submit)="submit()">
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" class="form-control" name="nombre" placeholder="Nombre de la Categoria">
+        </div>
+        <div class="form-group">
+            <label for="nombre">Descripcion</label>
+            <input type="text" class="form-control" name="descripcion" placeholder="Descripcion de la Categoria">
+        </div>
+        <div class="tipo" formArrayName="tipo">
+            <div class="col-md-10">
+                <h5>Tipos</h5>
+            </div>
+            <div [formGroupName]="i" *ngFor="let direccion of formCategoria.controls['tipo'].controls; let i = index">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-10">
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label" for="'nombre' + i">Nombre</label>
+                                        <input type="text" class="form-control" name="nombre"
+                                            placeholder="Nombre del Tipo" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label"
+                                            for="'descripcion' + i">Descripcion</label>
+                                        <input type="text" class="form-control" name="descripcion"
+                                            placeholder="Descripcion del Tipo" />
+                                    </div>
+                                </div>
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <input class="btn btn-danger pull-right" type="button" (click)="eliminarTipo(i)"
+                                            value="Remover">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10">
+                <div class="form-group">
+                    <p></p>
+                    <button class="btn btn-secondary" type="button" (click)="anadirTipo()">Añadir Tipo</button>
+                </div>
+            </div>
+        </div>
+        <div class="btn-toolbar">
+            <div class="btn-group mr-2" role="group">
+                <button class="btn btn-primary">Agregar Categoria</button>
+            </div>
+            <div class="btn-group mr-2" role="group">
+                <button type="button" class="btn btn-info" routerLink="/tipo-categoria">Regresar</button>
+            </div>
+        </div>
+    </form>
+</div>

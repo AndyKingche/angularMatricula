@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http'
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +24,8 @@ import { AlumnosListComponent } from './components/alumnos-list/alumnos-list.com
 import { TipoCategoriaFormComponent } from './components/tipo-categoria-form/tipo-categoria-form.component';
 import { TipoCategoriaListComponent } from './components/tipo-categoria-list/tipo-categoria-list.component';
 import { NgSelect2Module } from 'ng-select2';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatInputModule, MatButtonModule } from '@angular/material';
 
 
 @NgModule({
@@ -50,8 +53,13 @@ import { NgSelect2Module } from 'ng-select2';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    NgSelect2Module
+    ReactiveFormsModule,
+    NgSelect2Module,
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatButtonModule
   ],
+  
   providers: [ProvinciaService],
   bootstrap: [AppComponent]
 })
