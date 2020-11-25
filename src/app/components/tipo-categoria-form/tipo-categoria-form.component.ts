@@ -1,10 +1,8 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { CategoriaService } from '../../services/categoria.service';
-import { Categoria } from '../../models/Categoria';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { getInterpolationArgsLength } from '@angular/compiler/src/render3/view/util';
-import { Tipo } from 'src/app/models/Tipo';
+import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
+import { Categoria } from 'src/app/models/Categoria';
+import { CategoriaService } from 'src/app/services/categoria.service';
+
 
 @Component({
   selector: 'app-tipo-categoria-form',
@@ -12,33 +10,50 @@ import { Tipo } from 'src/app/models/Tipo';
   styleUrls: ['./tipo-categoria-form.component.css']
 })
 export class TipoCategoriaFormComponent implements OnInit {
-  tipo_categoria: Categoria={
+
+  aumentarTipo: string;
+  buttonValido: boolean;
+  formCategoria: FormGroup;
+
+  categoria: Categoria ={
     id: 0,
     nombre: '',
     descripcion: '',
     tipo: []
   };
-  aumentarTipo: string;
-  buttonValido: boolean;
+  
 
-  constructor() { }
+  constructor(private categoriaService: CategoriaService) { }
 
   ngOnInit() {
+    this.formCategoria = new FormGroup({
+    nombre: new FormControl(),
+    descripcion: new FormControl(),
+    tipo: new FormArray([])
+    });
+
     this.buttonValido = false;
   }
 
-  obtenerValor(valor: string, id: number) {
-    if (valor.length == 0){
-      this.buttonValido = true;
-    } else {
-      this.buttonValido = false;
-    }
-    console.log('este es el valor', this.tipo_categoria.tipo[id],"id " + id);
+  anadirTipo() {
+    (this.formCategoria.controls['tipo'] as FormArray).push(new FormGroup({
+      direccion: new FormControl('', Validators.required),
+      telefono: new FormControl('', Validators.required)
+    }));
   }
 
-  tipoAumentar() {
-    this.buttonValido = true;
-    this.tipo_categoria.tipo.push('');
+  eliminarTipo(index: number) {
+    (this.formCategoria.controls['tipo'] as FormArray).removeAt(index);
+  }
+
+  saveNewCategoria() {
+    this.categoriaService.saveCategoria(this.categoria).subscribe(
+      res => {
+        this.categoria.nombre = '',
+        this.categoria.descripcion = '',
+        this.categoria.tipo = []
+      }
+    )
   }
 
 }
