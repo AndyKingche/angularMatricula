@@ -6,6 +6,7 @@ import { Categoria } from '../../models/Categoria';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 import { Tipo } from 'src/app/models/Tipo';
 import { ɵAnimationGroupPlayer } from '@angular/animations';
+import { ConditionalExpr } from '@angular/compiler';
 declare let $: any;
 @Component({
   selector: 'app-tipo-categoria-list',
@@ -17,6 +18,7 @@ export class TipoCategoriaListComponent implements OnInit {
   @Input() public index;
   public nombrecollpase : string;
   numeroTipo : any=[];
+  numero : any=[];
   tipo : any =[];
   lista = Array();
   categorias : any=[];
@@ -28,14 +30,17 @@ export class TipoCategoriaListComponent implements OnInit {
 
     this.getCat(); 
     this.buscarCategoria = '';
+    
   }
 
   getCat(){
     this.categoriaService.getCategorias().subscribe(
-      res=>{this.categorias = res
-    
+      res=>{
+        this.categorias = res
+     
       },err=>console.log("err",err)
-    );    
+    );   
+    
   }
 
   obtenerTipo(id: number){
@@ -66,6 +71,16 @@ export class TipoCategoriaListComponent implements OnInit {
   vacio(esVacio:any){
     if(esVacio.length ==0){
       this.getCat();
+    }
+  }
+  
+  buscarNumeroTipo(){
+    for(let categorias of this.numeroTipo){
+      this.tipoService.numeroTipo(categorias.id).subscribe(
+        res=>{
+          this.numero = res;
+        }, err => console.error("err en el buscar numeros del tipo categoria"+err)
+      );
     }
   }
 
