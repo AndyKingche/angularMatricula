@@ -18,30 +18,20 @@ export class TipoCategoriaFormComponent implements OnInit {
   buttonValido: boolean;
   formCategoria: FormGroup;
 
-  categoria: Categoria ={
-    id: 0,
-    nombre: '',
-    descripcion: '',
-    tipo:[{nombre:'',descripcion:''}]
-  };
-
-  
-  constructor(private categoriaService: CategoriaService, private tipoService: TipoService) { }
+  constructor(private fb: FormBuilder, private categoriaService: CategoriaService) { }
 
   ngOnInit() {
-    this.formCategoria = new FormGroup({
-    nombre: new FormControl(),
-    descripcion: new FormControl(),
-    tipo: new FormArray([]),
+    this.formCategoria = this.fb.group({
+    nombre: '',
+    descripcion: '',
+    tipo: this.fb.array([])
     });
-
-
   }
 
   anadirTipo() {
-    (this.formCategoria.controls['tipo'] as FormArray).push(new FormGroup({
-      nombre: new FormControl('', Validators.required),
-      descripcion: new FormControl('', Validators.required)
+    (this.formCategoria.controls['tipo'] as FormArray).push(this.fb.group({
+      nombre: '',
+      descripcion: ''
     }));
   
     
@@ -51,8 +41,9 @@ export class TipoCategoriaFormComponent implements OnInit {
   }
 
   saveNewCategoria() {
-    
-    
+    let categorias: Categoria = Object.assign({}, this.formCategoria.value);
+    console.table(categorias);
+    this.categoriaService.saveCategoria(categorias).subscribe(res => {
+    },err=>console.error(err));
   }
-  
 }
