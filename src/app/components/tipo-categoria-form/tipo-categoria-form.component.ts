@@ -2,6 +2,8 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { Categoria } from 'src/app/models/Categoria';
 import { CategoriaService } from 'src/app/services/categoria.service';
+import { TipoService } from '../../services/tipo.service';
+import { Tipo } from '../../models/Tipo'
 
 
 @Component({
@@ -10,6 +12,7 @@ import { CategoriaService } from 'src/app/services/categoria.service';
   styleUrls: ['./tipo-categoria-form.component.css']
 })
 export class TipoCategoriaFormComponent implements OnInit {
+  @HostBinding('class') clasess ='row';
 
   aumentarTipo: string;
   buttonValido: boolean;
@@ -19,41 +22,37 @@ export class TipoCategoriaFormComponent implements OnInit {
     id: 0,
     nombre: '',
     descripcion: '',
-    tipo: []
+    tipo:[{nombre:'',descripcion:''}]
   };
-  
 
-  constructor(private categoriaService: CategoriaService) { }
+  
+  constructor(private categoriaService: CategoriaService, private tipoService: TipoService) { }
 
   ngOnInit() {
     this.formCategoria = new FormGroup({
     nombre: new FormControl(),
     descripcion: new FormControl(),
-    tipo: new FormArray([])
+    tipo: new FormArray([]),
     });
 
-    this.buttonValido = false;
+
   }
 
   anadirTipo() {
     (this.formCategoria.controls['tipo'] as FormArray).push(new FormGroup({
-      direccion: new FormControl('', Validators.required),
-      telefono: new FormControl('', Validators.required)
+      nombre: new FormControl('', Validators.required),
+      descripcion: new FormControl('', Validators.required)
     }));
+  
+    
   }
-
   eliminarTipo(index: number) {
     (this.formCategoria.controls['tipo'] as FormArray).removeAt(index);
   }
 
   saveNewCategoria() {
-    this.categoriaService.saveCategoria(this.categoria).subscribe(
-      res => {
-        this.categoria.nombre = '',
-        this.categoria.descripcion = '',
-        this.categoria.tipo = []
-      }
-    )
+    
+    
   }
-
+  
 }
