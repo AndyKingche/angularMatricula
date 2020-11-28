@@ -29,7 +29,8 @@ export class TipoService {
   encontrarCategoria(id:number){
     return this.http.get(`${this.API_URI}/find/${id}`);
   }
-  numeroTipo(id:number){
-    return this.http.get(`${this.API_URI}/number/${id}`);
+    actulaizarTipo(id:number,idcat:number,tipo:Tipo){
+      return this.http.put(`${this.API_URI}/categoria/${id}/${idcat}`,tipo)
+
   }
 }

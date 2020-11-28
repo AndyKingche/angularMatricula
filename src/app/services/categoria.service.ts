@@ -24,7 +24,7 @@ export class CategoriaService {
   deleteCategoria(id:number){
     return this.http.delete(`${this.API_URI}/${id}`)
   }
-  updateCategoria(id: number, categoria : Categoria){
+  updateCategoria(id: number, categoria : Categoria):Observable<Categoria>{
     return this.http.put(`${this.API_URI}/${id}`,categoria);
   }
   encontrarCategoriaNombre(name:string){
