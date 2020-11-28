@@ -93,6 +93,16 @@ export class TipoCategoriaListComponent implements OnInit {
     )
 
   }
+  eliminarTipoBDD(i:number,icategoria:number)
+  {
+    this.tipoService.deleteTipo(i).subscribe(
+      res=>{
+        console.log("se ha actualizado");
+        this.obtenerTipo(icategoria);
+      },err=>console.log("no se actualizo "+err)
+    );
+
+  }
 
 
 

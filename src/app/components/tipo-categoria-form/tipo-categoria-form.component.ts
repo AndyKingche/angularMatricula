@@ -96,17 +96,9 @@ export class TipoCategoriaFormComponent implements OnInit {
   actualizarCategoria(){
     this.categoria = Object.assign({}, this.formCategoria.value);
     console.table(this.categoria.tipo);
-    console.log("",this.id)
-    
-  
     this.categoriaService.updateCategoria(this.id,this.categoria).subscribe(res => {
       while(this.idTipo<this.categoriaux.tipo.length){
-        this.categoria.tipo[this.idTipo] = this.categoriaux.tipo[this.idTipo];
-        
-        console.log("ide del tipo"+this.categoria.tipo[this.idTipo].id)
-        console.log("datos"+this.categoria.tipo[this.idTipo].nombre)
-        
-        this.tipoService.actulaizarTipo(this.categoria.tipo[this.idTipo].id, this.id, this.categoria.tipo[this.idTipo]).subscribe(
+        this.tipoService.actulaizarTipo(this.categoriaux.tipo[this.idTipo].id, this.id, this.categoria.tipo[this.idTipo]).subscribe(
           res=>{
             console.log("res"+res)
           },err=>console.error("--",err)
@@ -115,7 +107,20 @@ export class TipoCategoriaFormComponent implements OnInit {
         this.idTipo++;
         }
       this.idTipo=0;
-
     },err=>console.error("ERROR ",err));
+     
   }
+  eliminarTipoBDD(i:number)
+  {
+    this.tipoService.deleteTipo(this.categoriaux.tipo[i].id).subscribe(
+      res=>{
+        console.log("se ha actualizado");
+        this.eliminarTipo(i);
+
+      },err=>console.log("no se actualizo "+err)
+    );
+
+  }
+
+  
 }

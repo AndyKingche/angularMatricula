@@ -10,7 +10,7 @@
             <input type="text" class="form-control" formControlName="descripcion" [(ngModel)]="categoriaux.descripcion" placeholder="Descripcion de la Categoria">
         </div>
 
-        <div formArrayName="tipo" *ngFor="let tip of formCategoria.controls['tipo'].controls; let i = index">
+        <div formArrayName="tipo" *ngFor="let tip of formCategoria.controls['tipo'].controls; let i = index;">
             <div [formGroupName]="i">
                 <div class="col-md-12">
                     <div class="card">
