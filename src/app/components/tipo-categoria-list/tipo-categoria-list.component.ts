@@ -74,14 +74,24 @@ export class TipoCategoriaListComponent implements OnInit {
     }
   }
   
-  buscarNumeroTipo(){
-    for(let categorias of this.numeroTipo){
-      this.tipoService.numeroTipo(categorias.id).subscribe(
-        res=>{
-          this.numero = res;
-        }, err => console.error("err en el buscar numeros del tipo categoria"+err)
-      );
-    }
+  // buscarNumeroTipo(){
+  //   for(let categorias of this.numeroTipo){
+  //     this.tipoService.numeroTipo(categorias.id).subscribe(
+  //       res=>{
+  //         this.numero = res;
+  //       }, err => console.error("err en el buscar numeros del tipo categoria"+err)
+  //     );
+  //   }
+  // }
+
+  borrarCategoria(id:number){
+    this.categoriaService.deleteCategoria(id).subscribe(
+      res =>{
+        console.log("se ha borrado correctamente");
+        this.getCat();
+      },err=>console.log("err"+err)
+    )
+
   }
 
 

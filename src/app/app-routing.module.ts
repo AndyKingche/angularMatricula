@@ -86,6 +86,11 @@ component: AlumnosFormComponent
   path: 'tipo-categoria/add',
   component: TipoCategoriaFormComponent
 }
+,
+{
+  path: 'tipo-categoria/edit/:id',
+  component: TipoCategoriaFormComponent
+}
 
 ];
 

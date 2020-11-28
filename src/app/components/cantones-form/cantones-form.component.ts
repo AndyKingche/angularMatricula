@@ -92,6 +92,7 @@ export class CantonesFormComponent implements OnInit {
   updateP(){
     let opcion=$('select').val();
     this.cantones.provincia.id = opcion;
+    console.log("",this.cantones.id)
     this.cantonesService.updateCantones(this.cantones.id,this.cantones).subscribe(
       res => {
         console.log("res: "+res);
