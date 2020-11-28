@@ -10,6 +10,10 @@
             <input type="text" class="form-control" formControlName="descripcion" placeholder="Descripcion de la Categoria">
         </div>
 
+        <div class="col-md-10">
+            <h5>Tipos</h5>
+        </div>
+
         <div formArrayName="tipo" *ngFor="let tip of formCategoria.controls['tipo'].controls; let i = index">
             <div [formGroupName]="i">
                 <div class="col-md-12">
@@ -38,10 +42,11 @@
                             </div>
                         </div>
                     </div>
+                    <p></p>
                 </div>
             </div>
         </div>
-
+        <p></p>
         <div class="col-md-10">
             <div class="form-group">
                 <button class="btn btn-secondary" type="button" (click)="anadirTipo()">Añadir Tipo</button>
@@ -54,6 +59,7 @@
             </div>
             <div class="btn-group mr-2" role="group">
                 <button type="button" class="btn btn-info" routerLink="/tipo-categoria">Regresar</button>
+            </div>
         </div>
     </form>
 </div>
