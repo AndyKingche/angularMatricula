@@ -6,7 +6,6 @@ import { TipoService } from '../../services/tipo.service';
 import { Tipo } from '../../models/Tipo'
 import {ActivatedRoute, Router } from '@angular/router';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
-import { Console } from 'console';
 @Component({
   selector: 'app-tipo-categoria-form',
   templateUrl: './tipo-categoria-form.component.html',
