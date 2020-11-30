@@ -97,8 +97,6 @@ export class TipoCategoriaFormComponent implements OnInit {
     this.categoria = Object.assign({}, this.formCategoria.value);
     console.table(this.categoria.tipo);
     console.log("",this.id)
-    
-  
     this.categoriaService.updateCategoria(this.id,this.categoria).subscribe(res => {
       while(this.idTipo<this.categoriaux.tipo.length){
         this.categoria.tipo[this.idTipo] = this.categoriaux.tipo[this.idTipo];
