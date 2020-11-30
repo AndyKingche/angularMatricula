@@ -34,7 +34,7 @@
                             </div>
                             <div class="row align-items-center">
                                 <button type="button" class="btn btn-danger pull-right"
-                                    (click)="eliminarTipo(i)">Eliminar</button>
+                                    (click)="editar ? eliminarTipoBDD(i) : eliminarTipo(i)">Eliminar</button>
                             </div>
                         </div>
                     </div>

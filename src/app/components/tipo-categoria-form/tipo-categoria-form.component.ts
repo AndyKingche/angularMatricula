@@ -6,6 +6,7 @@ import { TipoService } from '../../services/tipo.service';
 import { Tipo } from '../../models/Tipo'
 import {ActivatedRoute, Router } from '@angular/router';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import { Console } from 'console';
 @Component({
   selector: 'app-tipo-categoria-form',
   templateUrl: './tipo-categoria-form.component.html',
@@ -96,18 +97,24 @@ export class TipoCategoriaFormComponent implements OnInit {
   actualizarCategoria(){
     this.categoria = Object.assign({}, this.formCategoria.value);
     console.table(this.categoria.tipo);
-    this.categoriaService.updateCategoria(this.id,this.categoria).subscribe(res => {
-      while(this.idTipo<this.categoriaux.tipo.length){
-        this.tipoService.actulaizarTipo(this.categoriaux.tipo[this.idTipo].id, this.id, this.categoria.tipo[this.idTipo]).subscribe(
-          res=>{
-            console.log("res"+res)
-          },err=>console.error("--",err)
-        );
-
-        this.idTipo++;
-        }
-      this.idTipo=0;
-    },err=>console.error("ERROR ",err));
+    if(this.categoria.tipo.length!=0){
+      this.categoriaService.updateCategoria(this.id,this.categoria).subscribe(res => {
+        while(this.idTipo<this.categoriaux.tipo.length){
+          console.log("holis+ "+this.categoriaux.tipo[this.idTipo].id)
+          this.tipoService.actulaizarTipo(this.categoriaux.tipo[this.idTipo].id, this.id, this.categoria.tipo[this.idTipo]).subscribe(
+            res=>{
+              console.log("res"+res)
+            },err=>console.error("--",err)
+          );
+  
+          this.idTipo++;
+          }
+        this.idTipo=0;
+      },err=>console.error("ERROR ",err));
+    }else{
+      console.log("CREAR UNO NUEVO")
+    }
+    
      
   }
   eliminarTipoBDD(i:number)
