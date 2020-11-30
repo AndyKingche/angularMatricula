@@ -15,7 +15,7 @@ import { Console } from 'console';
 export class TipoCategoriaFormComponent implements OnInit {
   @HostBinding('class') clasess ='row';
 
-  aumentarTipo: string;
+  aumentarTipo: number = 0;
   buttonValido: boolean;
   formCategoria: FormGroup;
   categoria : Categoria={
@@ -30,11 +30,11 @@ export class TipoCategoriaFormComponent implements OnInit {
     descripcion:'',
     tipo:[{nombre:'',descripcion:'',categoria:{id:0}}]
   }
-  contador : number;
+  private contador : number;
   editar: boolean = false;
   id: number =0;
   idTipo: number =0;
-  
+  tipo: any=[];
   constructor(private tipoService:TipoService, private fb: FormBuilder, private categoriaService: CategoriaService, private router:Router, private activeRouter: ActivatedRoute) { }
 
   ngOnInit() {
@@ -90,6 +90,7 @@ export class TipoCategoriaFormComponent implements OnInit {
   saveNewCategoria() {
     this.categoria = Object.assign({}, this.formCategoria.value);
     console.table(this.categoria);
+    
     this.categoriaService.saveCategoria(this.categoria).subscribe(res => {
     },err=>console.error(err));
   }
@@ -97,11 +98,16 @@ export class TipoCategoriaFormComponent implements OnInit {
   actualizarCategoria(){
     this.categoria = Object.assign({}, this.formCategoria.value);
     console.table(this.categoria.tipo);
-    if(this.categoria.tipo.length!=0){
+
       this.categoriaService.updateCategoria(this.id,this.categoria).subscribe(res => {
-        while(this.idTipo<this.categoriaux.tipo.length){
-          console.log("holis+ "+this.categoriaux.tipo[this.idTipo].id)
-          this.tipoService.actulaizarTipo(this.categoriaux.tipo[this.idTipo].id, this.id, this.categoria.tipo[this.idTipo]).subscribe(
+        while(this.idTipo<this.categoria.tipo.length){
+          this.aumentarTipo = this.categoriaux.tipo[this.idTipo] !=null ? this.categoriaux.tipo[this.idTipo].id : -1;
+          
+          console.log("dato nombre"+this.categoria.tipo[this.idTipo].nombre);
+          console.log("dato des"+this.categoria.tipo[this.idTipo].descripcion);
+          console.log("id categoria"+this.id);
+          console.log("id del tipo obtenido del nuevo formulario "+ this.aumentarTipo )
+          this.tipoService.actulaizarTipo(this.aumentarTipo, this.id, this.categoria.tipo[this.idTipo]).subscribe(
             res=>{
               console.log("res"+res)
             },err=>console.error("--",err)
@@ -111,22 +117,37 @@ export class TipoCategoriaFormComponent implements OnInit {
           }
         this.idTipo=0;
       },err=>console.error("ERROR ",err));
-    }else{
-      console.log("CREAR UNO NUEVO")
-    }
+   
     
      
   }
   eliminarTipoBDD(i:number)
   {
-    this.tipoService.deleteTipo(this.categoriaux.tipo[i].id).subscribe(
-      res=>{
-        console.log("se ha actualizado");
+    
+    console.log("id del tipo que se va a borrar "+this.categoriaux.tipo[i].id)
+    
+    
+      this.tipoService.deleteTipo(this.categoriaux.tipo[i].id).subscribe(
+        res=>{
+          console.log("se ha actualizado"+ res);
         this.eliminarTipo(i);
+      console.log("Elimnar "+this.categoriaux.tipo.length)
+        },err=>console.log("no se actualizo "+err)
+      );
 
-      },err=>console.log("no se actualizo "+err)
+
+  }
+  obtenerTipo(id: number){
+    console.log("este es el id"+ id)
+    this.tipoService.encontrarCategoria(id).subscribe(
+      res=>{
+        this.tipo = res
+        console.log("",this.tipo);
+      
+    },err=>console.error("err",err)
     );
-
+    this.tipo = [];
+    
   }
 
   
