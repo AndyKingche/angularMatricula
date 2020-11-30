@@ -15,6 +15,7 @@ export class TipoCategoriaFormComponent implements OnInit {
   @HostBinding('class') clasess ='row';
 
   aumentarTipo: number = 0;
+  aumentarTipoX: number = 0;
   buttonValido: boolean;
   formCategoria: FormGroup;
   categoria : Categoria={
@@ -33,16 +34,17 @@ export class TipoCategoriaFormComponent implements OnInit {
   editar: boolean = false;
   id: number =0;
   idTipo: number =0;
-  tipo: any=[];
+  tipo:Tipo = {nombre:'',descripcion:'',categoria:{id:0}};
   constructor(private tipoService:TipoService, private fb: FormBuilder, private categoriaService: CategoriaService, private router:Router, private activeRouter: ActivatedRoute) { }
 
   ngOnInit() {
     this.contador=0;
+    if(!this.editar){
     this.formCategoria = this.fb.group({
     nombre: '',
     descripcion: '',
     tipo: this.fb.array([])
-    });
+    });}
     const params = this.activeRouter.snapshot.params;
     if(params.id){
       this.categoriaService.getCategoria(params.id).subscribe(
@@ -52,18 +54,9 @@ export class TipoCategoriaFormComponent implements OnInit {
             console.log(res);
           this.categoriaux = res;
           this.id = this.categoriaux.id;
-          
-          console.log("cate",this.categoriaux.id)
-         while(this.contador<this.categoriaux.tipo.length){
-          (this.formCategoria.controls['tipo'] as FormArray).push(this.fb.group({
-            
-            nombre: this.categoriaux.tipo[this.contador].nombre,
-            descripcion: this.categoriaux.tipo[this.contador].descripcion
-          }));
         
-          this.contador++;
-         }
-         this.contador=0;
+          console.log("cate",this.categoriaux.id)
+         this.imprimirTipo(this.categoriaux);
          this.editar = true;
           }else{
             console.log("no hay el parametro")
@@ -82,7 +75,32 @@ export class TipoCategoriaFormComponent implements OnInit {
   
     
   }
+  imprimirTipo(categorys: Categoria){
+    this.formCategoria = this.fb.group({
+      nombre: categorys.nombre,
+      descripcion: categorys.descripcion,
+      tipo: this.fb.array([])
+      });
+      this.contador=0;
+    while(this.contador<categorys.tipo.length){
+      (this.formCategoria.controls['tipo'] as FormArray).push(this.fb.group({
+        
+        nombre: categorys.tipo[this.contador].nombre,
+        descripcion: categorys.tipo[this.contador].descripcion
+      }));
+    
+      this.contador++;
+     }
+     this.contador=0;
+  }
+  
+  reloaded(){
+   this.ngOnInit();
+  }
+
+
   eliminarTipo(index: number) {
+    this.categoria = Object.assign({}, this.formCategoria.value);
     (this.formCategoria.controls['tipo'] as FormArray).removeAt(index);
   }
 
@@ -128,26 +146,19 @@ export class TipoCategoriaFormComponent implements OnInit {
     
       this.tipoService.deleteTipo(this.categoriaux.tipo[i].id).subscribe(
         res=>{
-          console.log("se ha actualizado"+ res);
-        this.eliminarTipo(i);
-      console.log("Elimnar "+this.categoriaux.tipo.length)
-        },err=>console.log("no se actualizo "+err)
+          console.log("se ha elimino"+ res);
+          this.eliminarTipo(i);
+          
+         this.reloaded();
+          
+          
+        
+        },err=>console.log("no se elimino "+err)
       );
 
 
   }
-  obtenerTipo(id: number){
-    console.log("este es el id"+ id)
-    this.tipoService.encontrarCategoria(id).subscribe(
-      res=>{
-        this.tipo = res
-        console.log("",this.tipo);
-      
-    },err=>console.error("err",err)
-    );
-    this.tipo = [];
-    
-  }
+  
 
   
 }
