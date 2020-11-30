@@ -111,11 +111,10 @@ export class TipoCategoriaFormComponent implements OnInit {
             console.log("res"+res)
           },err=>console.error("--",err)
         );
-
         this.idTipo++;
         }
       this.idTipo=0;
-
+      
     },err=>console.error("ERROR ",err));
   }
 }
