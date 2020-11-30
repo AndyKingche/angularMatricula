@@ -23,46 +23,46 @@
   
   </div>
 
-<div class="container" >
+  <div class="col-md-13">
     <table class="table table-responsive">
-        <thead>
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
+          <th scope="col">Provincia</th>
+          <th scope="col">Cedula</th>
+          <th scope="col">Fecha de Nacimiento</th>
+          <th scope="col">Edad</th>
+          <th scope="col">Direccion</th>
+          <th scope="col">Telefono</th>
+          <th scope="col">Grado</th>
+          <th scope="col">N# de matricula</th>
+          <th scope="col"> </th>
+          <th scope="col"> </th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let alumnos of alumnos">
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Apellido</th>
-            <th scope="col">Provincia</th>
-            <th scope="col">Cedula</th>
-            <th scope="col">Fecha de Nacimiento</th>
-            <th scope="col">Edad</th>
-            <th scope="col">Direccion</th>
-            <th scope="col">Telefono</th>
-            <th scope="col">Grado</th>
-            <th scope="col">N# de matricula</th>
-            <th scope="col"> </th>
-            <th scope="col"> </th>
-          </tr>
-        </thead>
-        <tbody *ngFor="let alumnos of alumnos">
-            <tr>
-                <th scope="row">{{alumnos.id}}</th>
-                <td>{{alumnos.nombre}}</td>
-                <td>{{alumnos.apellido}}</td>
-                <td>{{alumnos.provincia.nombre}}</td>
-                <td>{{alumnos.cedula}}</td>
-                <td>{{alumnos.fechanacimiento}}</td>
-                <td>{{alumnos.edad}}</td>
-                <td>{{alumnos.direccion}}</td>
-                <td>{{alumnos.telefono}}</td>
-                <td>{{alumnos.grado}}</td>
-                <td>{{alumnos.numeromatricula}}</td>
-                <td><button type="button" class="btn btn-danger" (click)="borrarP(alumnos.id)"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
-                </svg></button></td>
-                <td><button type="button" class="btn btn-info" [routerLink]="['/alumnos/edit/',alumnos.id]"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-counterclockwise" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
-                  <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
-                </svg></button></td>
-              </tr>
-          </tbody>
-      </table> 
+              <th scope="row">{{alumnos.id}}</th>
+              <td>{{alumnos.nombre}}</td>
+              <td>{{alumnos.apellido}}</td>
+              <td>{{alumnos.provincia.nombre}}</td>
+              <td>{{alumnos.cedula}}</td>
+              <td>{{alumnos.fechanacimiento}}</td>
+              <td>{{alumnos.edad}}</td>
+              <td>{{alumnos.direccion}}</td>
+              <td>{{alumnos.telefono}}</td>
+              <td>{{alumnos.grado}}</td>
+              <td>{{alumnos.numeromatricula}}</td>
+              <td><button type="button" class="btn btn-danger" (click)="borrarP(alumnos.id)"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
+              </svg></button></td>
+              <td><button type="button" class="btn btn-info" [routerLink]="['/alumnos/edit/',alumnos.id]"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-counterclockwise" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
+                <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
+              </svg></button></td>
+            </tr>
+        </tbody>
+    </table>    
 </div>
