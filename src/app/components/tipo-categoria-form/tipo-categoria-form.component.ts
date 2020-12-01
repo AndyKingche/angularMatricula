@@ -35,6 +35,7 @@ export class TipoCategoriaFormComponent implements OnInit {
   id: number =0;
   idTipo: number =0;
   tipo:Tipo = {nombre:'',descripcion:'',categoria:{id:0}};
+  conteliminar : number=0;
   constructor(private tipoService:TipoService, private fb: FormBuilder, private categoriaService: CategoriaService, private router:Router, private activeRouter: ActivatedRoute) { }
 
   ngOnInit() {
@@ -110,6 +111,7 @@ export class TipoCategoriaFormComponent implements OnInit {
     
     this.categoriaService.saveCategoria(this.categoria).subscribe(res => {
     },err=>console.error(err));
+
   }
 
   actualizarCategoria(){
@@ -134,27 +136,31 @@ export class TipoCategoriaFormComponent implements OnInit {
           }
         this.idTipo=0;
       },err=>console.error("ERROR ",err));
-   
     
-     
   }
   eliminarTipoBDD(i:number)
   {
+    this.conteliminar+=i;
+   // console.log("id del tipo que se va a borrar "+this.categoriaux.tipo[i].id)
     
-    console.log("id del tipo que se va a borrar "+this.categoriaux.tipo[i].id)
-    
-    
-      this.tipoService.deleteTipo(this.categoriaux.tipo[i].id).subscribe(
+    if(this.categoriaux.tipo[this.conteliminar]!=null){
+
+      this.tipoService.deleteTipo(this.categoriaux.tipo[this.conteliminar].id).subscribe(
         res=>{
           console.log("se ha elimino"+ res);
           this.eliminarTipo(i);
           
-         this.reloaded();
-          
-          
+         
+               this.conteliminar++;
         
         },err=>console.log("no se elimino "+err)
       );
+
+    }else{
+      this.eliminarTipo(i);
+      
+    }
+      
 
 
   }
