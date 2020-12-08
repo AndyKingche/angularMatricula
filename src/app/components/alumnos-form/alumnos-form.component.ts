@@ -6,6 +6,7 @@ import { Provincia } from '../../models/Provincia';
 import { ProvinciaService } from '../../services/provincia.service';
 import { Select2OptionData } from 'ng-select2';
 import { Options } from 'select2';
+import { CantonesService } from '../../services/cantones.service';
 import { element } from 'protractor';
 import { Console } from 'console';
 declare let $: any;
@@ -36,9 +37,13 @@ export class AlumnosFormComponent implements OnInit {
     provincia: {id: 0}
   };
 
+  cantones : any = [];
+  cantonesEscogidos : any = [];
   edit: boolean = false;
-
-  constructor(private alumnosService:AlumnosService, private provinciasService: ProvinciaService, private router: Router,private activeroute: ActivatedRoute) { }
+  opcionseleccionado : string = '';
+  constructor(private alumnosService:AlumnosService, private provinciasService: ProvinciaService, private cantonesServices: CantonesService,private router: Router,private activeroute: ActivatedRoute) {
+  
+   }
 
   ngOnInit() {
     const params = this.activeroute.snapshot.params;
@@ -73,8 +78,11 @@ export class AlumnosFormComponent implements OnInit {
       placeholder: "Seleccione una opcion....",
       allowClear:true
     });
+    
+ 
   }
-
+  
+  
   saveNewP(){ 
     let opcion=$('select').val();
     this.alumnos.provincia.id = opcion;
@@ -101,6 +109,7 @@ export class AlumnosFormComponent implements OnInit {
        this.selectDivece= deviceValue;
        console.log("... "+this.selectDivece)
     }
+  
       updateP(){
         let opcion=$('select').val();
         this.alumnos.provincia.id = opcion;
@@ -137,7 +146,12 @@ export class AlumnosFormComponent implements OnInit {
             
           },
           err => console.error(err)
-        )
+        );
+        console.log("----"+this.provincias.id)
       }
 
+      cogiProvincia(value:any){
+        console.log("entre", value)
+      }
+     
 }

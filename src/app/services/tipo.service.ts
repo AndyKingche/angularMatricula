@@ -33,4 +33,5 @@ export class TipoService {
       return this.http.put(`${this.API_URI}/categoria/${id}/${idcat}`,tipo)
 
   }
+  
 }
