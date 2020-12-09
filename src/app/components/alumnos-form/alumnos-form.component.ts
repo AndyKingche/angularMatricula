@@ -23,6 +23,9 @@ export class AlumnosFormComponent implements OnInit {
   public options: Options;
   public exampleData: Array<Select2OptionData>;
   provinciaEscogida : any =[];
+
+  provincias1: Provincia[];
+
   alumnos : Alumnos ={
     id: 0,
     nombre: '',
@@ -46,6 +49,7 @@ export class AlumnosFormComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.obtenerProvincias();
     const params = this.activeroute.snapshot.params;
     console.log(params);
     if(params.id){
@@ -57,7 +61,7 @@ export class AlumnosFormComponent implements OnInit {
             this.provinciasService.getProvincia(this.alumnos.provincia.id).subscribe(
               res => {this.provinciaEscogida =res 
                 $('.js-example-placeholder-single').select2({
-                  placeholder: this.provinciaEscogida.nombre ,
+                  placeholder: this.provinciaEscogida.nombre,
                   allowClear:true
                 });
               }
@@ -81,7 +85,15 @@ export class AlumnosFormComponent implements OnInit {
     
  
   }
-  
+
+  obtenerProvincias() {
+    this.provincias = this.provinciasService.getProvincias().subscribe(
+      res=>{ console.log(res);
+      },
+      err => console.log("err : "+ err)
+    );
+  }
+
   
   saveNewP(){ 
     let opcion=$('select').val();
