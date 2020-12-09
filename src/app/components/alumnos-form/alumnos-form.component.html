@@ -41,8 +41,9 @@
                 <div class="input-group-prepend">
                   <label class="input-group-text"  for="provincia"  >Provincias</label>
                 </div>
-                <select   width="300px" height="300px" class="js-example-placeholder-single js-states form-control" id="provincias" name="provincias"  required >
-                  <option [attr.selected]="provinciaEscogida.id" [attr.value]="provinciaEscogida.id"></option>
+                <select 
+                 width="300px" height="300px" class="js-example-placeholder-single js-states form-control js-example-programmatic" id="provincias" name="provincias"  required >
+                  <option   [attr.selected]="provinciaEscogida.id" [attr.value]="provinciaEscogida.id"></option>
                   <option  *ngFor="let provincias of provincias"   name="provincia" value="{{provincias.id}}" >{{provincias.nombre}}</option> 
                 </select>
                  </div>
@@ -53,9 +54,9 @@
               <div class="input-group-prepend">
                 <label class="input-group-text"  for="cantones">Cantones</label>
               </div>
-              <select width="300px" height="300px" class="js-example-placeholder-single js-states form-control" id="cantones" name="cantones"  required >
+              <select (imprimirCantones)="imprimirCantones(1)"  width="300px" height="300px" class="js-example-placeholder-single js-states form-control" id="cantones" name="cantones"  required >
                 <option [attr.selected]="cantonesEscogidos.id" [attr.value]="cantonesEscogidos.id"></option>
-                <option *ngFor="let cantones of cantones"  name="cantones" value="{{cantones.id}}">{{cantones.nombre}}</option>   
+                <option *ngFor="let cantones of cantones"  name="canton" value="{{cantones.id}}">{{cantones.nombre}}</option>   
               </select>
                </div>
       </div>
@@ -63,4 +64,5 @@
         <button type="button" class="btn btn-info" routerLink="/alumnos">Regresar</button>
       </form>
 </div>
+<p id="demo"></p>
 
