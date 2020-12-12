@@ -17,10 +17,11 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "types": ["jquery"]
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true
-  }
+  },"exclude": ["test.ts", "**/*.spec.ts"]
 }

@@ -9,6 +9,7 @@ import { Options } from 'select2';
 import { CantonesService } from '../../services/cantones.service';
 import { element } from 'protractor';
 import { Console } from 'console';
+
 declare let $: any;
 
 @Component({
@@ -44,12 +45,14 @@ export class AlumnosFormComponent implements OnInit {
   cantonesEscogidos : any = [];
   edit: boolean = false;
   opcionseleccionado : string = '';
-  constructor(private alumnosService:AlumnosService, private provinciasService: ProvinciaService, private cantonesServices: CantonesService,private router: Router,private activeroute: ActivatedRoute) {
+  numeroId : number =0;
   
+  constructor(private alumnosService:AlumnosService, private provinciasService: ProvinciaService, private cantonesServices: CantonesService,private router: Router,private activeroute: ActivatedRoute) {
+    
    }
 
   ngOnInit() {
-    this.obtenerProvincias();
+    $("#provincias").select2().change(this.provinciaSelect);
     const params = this.activeroute.snapshot.params;
     console.log(params);
     if(params.id){
@@ -82,8 +85,9 @@ export class AlumnosFormComponent implements OnInit {
       placeholder: "Seleccione una opcion....",
       allowClear:true
     });
-    
- 
+    this.imprimirCantones(0);
+     
+     
   }
 
   obtenerProvincias() {
@@ -161,9 +165,25 @@ export class AlumnosFormComponent implements OnInit {
         );
         console.log("----"+this.provincias.id)
       }
-
-      cogiProvincia(value:any){
-        console.log("entre", value)
+      
+      imprimirCantones(numeroId:number) {
+        this.cantonesServices.encontrarCantones(numeroId).subscribe(res => {this.cantones = res}, err => console.error(""));
+        console.log(this.provinciaSelect)
       }
+      
+
+      provinciaSelect(){
+        let selectedProvincia = $("#provincias").val();
+        this.numeroId = Number(selectedProvincia);
+       /*  console.log(this.numeroId) */
+    }
+
      
+    
+    
+
+    
+   
+  
+
 }
