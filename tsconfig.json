@@ -23,5 +23,8 @@
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true
-  },"exclude": ["test.ts", "**/*.spec.ts"]
+  },"exclude": ["test.ts", "**/*.spec.ts"],
+  "include": [
+    "node_modules/angular-select2-component/index.ts"
+  ]
 }

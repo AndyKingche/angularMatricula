@@ -4,8 +4,7 @@ import { Alumnos } from '../../models/Alumnos';
 import { AlumnosService } from '../../services/alumnos.service';
 import { Provincia } from '../../models/Provincia';
 import { ProvinciaService } from '../../services/provincia.service';
-import { Select2OptionData } from 'ng-select2';
-import { Options } from 'select2';
+
 import { CantonesService } from '../../services/cantones.service';
 import { element } from 'protractor';
 import { Console } from 'console';
@@ -21,8 +20,7 @@ export class AlumnosFormComponent implements OnInit {
   @HostBinding('class') classes = 'row';
   provincias :  any=[];
   selectDivece : string;
-  public options: Options;
-  public exampleData: Array<Select2OptionData>;
+ // public options: Options;
   provinciaEscogida : any =[];
   alumnos : Alumnos ={
     id: 0,
@@ -43,13 +41,13 @@ export class AlumnosFormComponent implements OnInit {
   edit: boolean = false;
   opcionseleccionado : string = '';
   numeroId : number =0;
-  
+  pe:any=null;
   constructor(private alumnosService:AlumnosService, private provinciasService: ProvinciaService, private cantonesServices: CantonesService,private router: Router,private activeroute: ActivatedRoute) {
     
    }
 
   ngOnInit() {
-    $("#provincias").select2().change(this.provinciaSelect);
+  
     const params = this.activeroute.snapshot.params;
     console.log(params);
     if(params.id){
@@ -60,7 +58,7 @@ export class AlumnosFormComponent implements OnInit {
             this.alumnos = res; // luego ponemos eso
             this.provinciasService.getProvincia(this.alumnos.provincia.id).subscribe(
               res => {this.provinciaEscogida =res 
-                $('.js-example-placeholder-single').select2({
+                $('#provincias').select2({
                   placeholder: this.provinciaEscogida.nombre ,
                   allowClear:true
                 });
@@ -78,14 +76,33 @@ export class AlumnosFormComponent implements OnInit {
       )
     }
     this.getAlumno();
-    $('.js-example-placeholder-single').select2({
+    this.imprimir(1);
+    $('#provincias').select2({
       placeholder: "Seleccione una opcion....",
-      allowClear:true
+      allowClear:true,
+    
     });
-    this.imprimirCantones(0);
-     
+    $('#cantones').select2({
+      placeholder: "Seleccione una opcion....",
+      allowClear:true,
+    
+    });
+   
      
   }
+  ngAfterViewInit(){
+    $('#provincias').on('change', (event) => {
+      var symbolSelected= event.target.value;
+      //you can use the selected value
+      console.log(""+symbolSelected)
+      this.cantonesServices.encontrarCantones(symbolSelected).subscribe(
+        res => {
+          this.cantones=res
+        },err => console.error(err)
+      );
+  });
+
+ }
   
   
   saveNewP(){ 
@@ -138,38 +155,53 @@ export class AlumnosFormComponent implements OnInit {
       }
 
       getAlumno(){
+        
         this.provinciasService.getProvincias().subscribe(
           res => {
             this.provincias = res;
           for(let x of this.provincias){
-              this.exampleData=[x];
-              console.log(this.exampleData)
-            this.options = {
-              theme: 'classic',closeOnSelect: true,width: '300'
-            }
+              // this.exampleData=[x];
+              // console.log(this.exampleData)
+            // this.options = {
+            //   theme: 'classic',closeOnSelect: true,width: '300'
+            // }
             }
             
           },
           err => console.error(err)
         );
-        console.log("----"+this.provincias.id)
-      }
-      imprimirCantones = (numeroId:number) =>{
-
-        this.cantonesServices.encontrarCantones(numeroId).subscribe(res => {this.cantones = res}, err => console.error(""));
-        console.log(this.provinciaSelect)
-      }
-    
-      provinciaSelect(){
         
-        let selectedProvincia = $("#provincias").val();
-        this.numeroId = Number(selectedProvincia);
-        console.log(this.numeroId)
+        //console.log("estoy en getAlumnos "+this.provinciaSelect());
+      }
+   
+    //   provinciaSelect():any{
+        
+    //     let selectedProvincia = $("#provincias").val();
+    //     this.numeroId = Number(selectedProvincia);
+    //     console.log("este es el numero "+this.numeroId)
+    //  this.imprimirC = () => {
+    //    this.cantonesServices.encontrarCantones(this.numeroId).subscribe(
+    //      res => { this.cantones =res},
+    //      err => console.error(err)     
+    //    );
+    //   console.log("si existo"+this.numeroId);
+    //   console.log("sii")
+    //  };
+    //  this.imprimirC()
+     
+    //  return this.numeroId;
+    // }
+
+    imprimir(n:any){
+
+      console.log("este es el numero"+ n);
+      
+       
     }
     
+    onOptionsSelected(value:string){
+      console.log("the selected value is " + value);
+ }
 
-    
-   
-  
 
 }

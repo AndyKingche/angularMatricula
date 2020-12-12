@@ -24,7 +24,7 @@ API_URI = 'api/cantones';
   updateCantones(id: number, cantones : Cantones){
     return this.http.put(`${this.API_URI}/${id}`,cantones);
   }
-  encontrarCantones(id:number){
+  encontrarCantones(id:number):Observable<Cantones>{
     return this.http.get(`${this.API_URI}/provincia/${id}`);
   }
 }
