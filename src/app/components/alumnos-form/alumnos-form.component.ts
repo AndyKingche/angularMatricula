@@ -9,6 +9,7 @@ import { Options } from 'select2';
 import { CantonesService } from '../../services/cantones.service';
 import { element } from 'protractor';
 import { Console } from 'console';
+import * as $1 from 'jquery';
 
 declare let $: any;
 
