@@ -1,10 +1,10 @@
 import { Component, ElementRef, HostBinding, OnInit, ViewChild, ɵConsole } from '@angular/core';
-import { Cantones } from 'src/app/models/Cantones';
+import { Cantones } from '../../models/Cantones';
 import {ActivatedRoute, Router } from '@angular/router';
 import { CantonesService } from '../../services/cantones.service';
 import { ProvinciaService } from '../../services/provincia.service'
 import { SelectorContext } from '@angular/compiler';
-import { Provincia } from 'src/app/models/Provincia';
+import { Provincia } from '../../models/Provincia';
 import { ProvinciaFromComponent } from '../provincia-from/provincia-from.component';
 import { FormsModule, NgSelectOption } from '@angular/forms';
 import { Reference } from '@angular/compiler/src/render3/r3_ast';

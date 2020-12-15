@@ -35,6 +35,28 @@
                                             formControlName="descripcion" placeholder="Descripcion del Tipo" />
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label class=" input-group-text col-md-2 control-label"
+                                        [attr.for]="'alumno' + i">Alumno</label>
+
+                                <!-- <form [formGroup]="formAlumno"> -->
+                                   
+                                    <div [formGroup]="formAlumno" class="col-11">
+
+                                        <div [formGroupName]="i">
+                                            <select  width="300px" height="300px" formControlName="id" [attr.id]="'id' + i" class="form-control"  name="id"  required >
+                                                <option [attr.selected]="" [attr.value]=""></option>
+                                                <option *ngFor="let alumno of alumno"  name="ids"  value="{{alumno.id}}">{{alumno.nombre}} {{alumno.apellido}}</option>   
+                                              </select>
+                                        </div>  
+                                </div>
+
+
+                                <!-- </form> -->
+                                   
+
+
+                                </div>
                             </div>
                             <div class="row align-items-center">
                                 <button type="button" class="btn btn-danger pull-right"
