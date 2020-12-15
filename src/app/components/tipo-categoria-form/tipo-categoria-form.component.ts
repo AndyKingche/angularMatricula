@@ -1,11 +1,16 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
-import { Categoria } from 'src/app/models/Categoria';
-import { CategoriaService } from 'src/app/services/categoria.service';
+import { Categoria } from '../../models/Categoria';
+import { Alumnos } from '../../models/Alumnos';
+import { AlumnosService } from '../../services/alumnos.service';
+import { CategoriaService } from '../../services/categoria.service';
 import { TipoService } from '../../services/tipo.service';
 import { Tipo } from '../../models/Tipo'
 import {ActivatedRoute, Router } from '@angular/router';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import { Input } from '@angular/core';
+
+declare let $: any;
 @Component({
   selector: 'app-tipo-categoria-form',
   templateUrl: './tipo-categoria-form.component.html',
@@ -18,17 +23,24 @@ export class TipoCategoriaFormComponent implements OnInit {
   aumentarTipoX: number = 0;
   buttonValido: boolean;
   formCategoria: FormGroup;
+  formAlumno : FormGroup;
   categoria : Categoria={
     id:0,
     nombre:'',
     descripcion:'',
-    tipo:[{nombre:'',descripcion:'',categoria:{id:0}}]
+    tipo:[{nombre:'',descripcion:'',categoria:{id:0}, alumno:{id:0}}]
   }
   categoriaux : Categoria={
     id:0,
     nombre:'',
     descripcion:'',
-    tipo:[{nombre:'',descripcion:'',categoria:{id:0}}]
+    tipo:[{nombre:'',descripcion:'',categoria:{id:0}, alumno:{id:0}}]
+  }
+  categoriaux2 : Categoria={
+    id:0,
+    nombre:'',
+    descripcion:'',
+    tipo:[{nombre:'',descripcion:'',categoria:{id:0}, alumno:{id:0}}]
   }
   private contador : number;
   editar: boolean = false;
@@ -36,16 +48,22 @@ export class TipoCategoriaFormComponent implements OnInit {
   idTipo: number =0;
   tipo:Tipo = {nombre:'',descripcion:'',categoria:{id:0}};
   conteliminar : number=0;
-  constructor(private tipoService:TipoService, private fb: FormBuilder, private categoriaService: CategoriaService, private router:Router, private activeRouter: ActivatedRoute) { }
+  alumno : any = [];
+  alumnoEscogido : any = [];
+  constructor(private tipoService:TipoService, private fb: FormBuilder, private categoriaService: CategoriaService, private router:Router, private activeRouter: ActivatedRoute, private alumnosService: AlumnosService) { }
 
   ngOnInit() {
+  
     this.contador=0;
     if(!this.editar){
     this.formCategoria = this.fb.group({
     nombre: '',
     descripcion: '',
-    tipo: this.fb.array([])
+    tipo: this.fb.array([]),
+    
+    
     });}
+    
     const params = this.activeRouter.snapshot.params;
     if(params.id){
       this.categoriaService.getCategoria(params.id).subscribe(
@@ -55,7 +73,7 @@ export class TipoCategoriaFormComponent implements OnInit {
             console.log(res);
           this.categoriaux = res;
           this.id = this.categoriaux.id;
-        
+          
           console.log("cate",this.categoriaux.id)
          this.imprimirTipo(this.categoriaux);
          this.editar = true;
@@ -66,21 +84,33 @@ export class TipoCategoriaFormComponent implements OnInit {
     },err => console.error("err"+err));
 
   }
+  
+}
+ngAfterViewInit(){
+  let opcion=$('select').val();
+    console.log(opcion)
 }
 
   anadirTipo() {
+    this.alumnosService.getAlumnos().subscribe(
+      res => { this.alumno = res},err => console.error("err "+err)
+    );
+    console.log(this.alumno);
     (this.formCategoria.controls['tipo'] as FormArray).push(this.fb.group({
       nombre: '',
-      descripcion: ''
+      descripcion: '',
+      alumno: this.fb.array([])
     }));
   
     
   }
+
   imprimirTipo(categorys: Categoria){
     this.formCategoria = this.fb.group({
       nombre: categorys.nombre,
       descripcion: categorys.descripcion,
-      tipo: this.fb.array([])
+      tipo: this.fb.array([]),
+      id: this.fb.array([])
       });
       this.contador=0;
     while(this.contador<categorys.tipo.length){
@@ -88,6 +118,9 @@ export class TipoCategoriaFormComponent implements OnInit {
         
         nombre: categorys.tipo[this.contador].nombre,
         descripcion: categorys.tipo[this.contador].descripcion
+        // alumno : (this.formCategoria.controls['id'] as FormArray).push(this.fb.group({
+        //   id:
+        // }))
       }));
     
       this.contador++;
@@ -106,13 +139,25 @@ export class TipoCategoriaFormComponent implements OnInit {
   }
 
   saveNewCategoria() {
+    let contador = 0;
     this.categoria = Object.assign({}, this.formCategoria.value);
-    console.table(this.categoria);
+    console.table(this.formCategoria.value);
+   
+    while(contador < this.formCategoria.value.tipo.length){
+      console.log(this.categoria.tipo[contador].alumno);
+      //this.categoria.tipo[contador].alumno.id = Number(this.formCategoria.value.tipo[contador].alumno);
+      contador++;
+    }
+    
+  //  // console.log(opcion)
+    
+    
     
     this.categoriaService.saveCategoria(this.categoria).subscribe(res => {
     },err=>console.error(err));
 
   }
+
 
   actualizarCategoria(){
     this.categoria = Object.assign({}, this.formCategoria.value);

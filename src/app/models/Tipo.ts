@@ -1,3 +1,4 @@
+import { Alumnos } from './Alumnos';
 import { Categoria } from './Categoria';
 
 export interface Tipo {
@@ -5,4 +6,5 @@ export interface Tipo {
     nombre?: string;
     descripcion?: string;
     categoria?: Categoria;
+    alumno ?: Alumnos;
 }

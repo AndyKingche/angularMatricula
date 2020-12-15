@@ -3,81 +3,67 @@
 <body>
   <div class="container-fluid">
     <form>
-      <div class="form-group">
-        <label for="nombre">Nombre del Alumno </label>
-        <input type="text" class="form-control" [(ngModel)]="alumnos.nombre" name="nombre"
-          placeholder="Nombre del Profesor">
-      </div>
-      <div class="form-group">
-        <label for="apellido">Apellido</label>
-        <input type="text" class="form-control" [(ngModel)]="alumnos.apellido" name="apellido"
-          placeholder="Apellido del Profesor">
-      </div>
-      <div class="form-group">
-        <label for="cedula">N# Cedula</label>
-        <input type="text" class="form-control" [(ngModel)]="alumnos.cedula" name="cedula"
-          placeholder="Numero de Cedula">
-      </div>
-      <div class="form-group">
-        <label for="fechanacimiento">Fecha de Nacimiento</label>
-        <input type="text" class="form-control" [(ngModel)]="alumnos.fechanacimiento" name="fechanacimiento"
-          placeholder="Numero de Cedula">
-      </div>
-      <div class="form-group">
-        <label for="edad">Edad</label>
-        <input type="text" class="form-control" [(ngModel)]="alumnos.edad" name="edad" placeholder="Numero de Cedula">
-      </div>
-      <div class="form-group">
-        <label for="direccion">Direccion</label>
-        <input type="text" class="form-control" [(ngModel)]="alumnos.direccion" name="direccion"
-          placeholder="Direccion">
-      </div>
-      <div class="form-group">
-        <label for="telefono">Telefono</label>
-        <input type="text" class="form-control" [(ngModel)]="alumnos.telefono" name="telefono" placeholder="Telefono">
-      </div>
-      <div class="form-group">
-        <label for="grado">Grado</label>
-        <input type="text" class="form-control" [(ngModel)]="alumnos.grado" name="grado" placeholder="Grado">
-      </div>
-      <div class="form-group">
-        <label for="numeromatricula">Numero Matricula</label>
-        <input type="number" class="form-control" [(ngModel)]="alumnos.numeromatricula" name="numeromatricula"
-          placeholder="Numero Matricula">
-      </div>
-      <div class="form-group">
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <label class="input-group-text" for="provincia">Provincias</label>
-          </div>
-          <select class="js-example-placeholder-single js-states form-control" id="provincias" name="provincias"
-            required>
-            <option [attr.selected]="provinciaEscogida.id" [attr.value]="provinciaEscogida.id"></option>
-            <option *ngFor="let provincias of provincias" name="provincia" value="{{provincias.id}}">
-              {{provincias.nombre}}
-            </option>
-          </select>
+        <div class="form-group">
+          <label for="nombre">Nombre del Alumno </label>
+          <input type="text" class="form-control"  [(ngModel)]="alumnos.nombre" name="nombre" placeholder="Nombre del Alumno">
+        </div>
+        <div class="form-group">
+          <label for="apellido">Apellido</label>
+          <input type="text" class="form-control" [(ngModel)]="alumnos.apellido"  name="apellido" placeholder="Apellido del Alumno">
+        </div>
+        <div class="form-group">
+            <label for="cedula">N# Cedula</label>
+            <input type="text" class="form-control" [(ngModel)]="alumnos.cedula"  name="cedula" placeholder="Numero de Cedula">
+        </div>
+        <div class="form-group">
+            <label for="fechanacimiento">Fecha de Nacimiento</label>
+            <input type="text" class="form-control" [(ngModel)]="alumnos.fechanacimiento"  name="fechanacimiento" placeholder="Numero de Cedula">
+        </div>
+        <div class="form-group">
+            <label for="edad">Edad</label>
+            <input type="text" class="form-control" [(ngModel)]="alumnos.edad"  name="edad" placeholder="Numero de Cedula">
+        </div>
+        <div class="form-group">
+            <label for="direccion">Direccion</label>
+            <input type="text" class="form-control" [(ngModel)]="alumnos.direccion"  name="direccion" placeholder="Direccion">
+        </div>
+        <div class="form-group">
+            <label for="telefono">Telefono</label>
+            <input type="text" class="form-control" [(ngModel)]="alumnos.telefono"  name="telefono" placeholder="Telefono">
+        </div>
+        <div class="form-group">
+            <label for="grado">Grado</label>
+            <input type="text" class="form-control" [(ngModel)]="alumnos.grado"  name="grado" placeholder="Grado">
+        </div>
+        <div class="form-group">
+            <label for="numeromatricula">Numero Matricula</label>
+            <input type="number" class="form-control" [(ngModel)]="alumnos.numeromatricula"  name="numeromatricula" placeholder="Numero Matricula">
+        </div>
+        <div class="form-group">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <label class="input-group-text"  for="provincia"  >Provincias</label>
+                </div>
+                <select 
+                 width="300px" height="300px" class="form-control" id="provincias" name="provincias"  required >
+                  <option  [attr.selected]="provinciaEscogida.id" [attr.value]="provinciaEscogida.id"></option>
+                  <option  *ngFor="let provincias of provincias"   name="provincia" value="{{provincias.id}}" >{{provincias.nombre}}</option> 
+                </select>
+                 </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" >
           <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="cantones">Cantones</label>
-            </div>
-            <select class="js-example-placeholder-single js-states form-control" id="cantones" name="cantones" onchange="ShowSelected();" required>
-              <option [attr.selected]="cantonesEscogidos.id" [attr.value]="cantonesEscogidos.id"></option>
-              <option *ngFor="let cantones of cantones" name="canton" value="imprimirCantones(1)">
-              </option>
-            </select>
-          </div>
-        </div>
-        <script type="text/javascript">
-          function ShowSelected() {
-            var cod = document.getElementById("provincias").value;
-            alert(cod);
-          }
-        </script>
-        <button class="btn btn-primary" (click)="edit ? updateP() : saveNewP()">Agregar Estudiante</button>
+              <div class="input-group-prepend">
+                <label class="input-group-text"  for="cantones">Cantones</label>
+              </div>
+              <select  width="300px" height="300px" class="form-control" id="cantones" name="cantones"  required >
+                <option [attr.selected]="cantonesEscogidos.id" [attr.value]="cantonesEscogidos.id"></option>
+                <option *ngFor="let cantones of cantones"  name="canton" value="{{cantones.id}}">{{cantones.nombre}}</option>   
+              </select>
+               </div>
+      </div>
+        <button  class="btn btn-primary" (click)="edit ? updateP() : saveNewP()">Agregar Estudiante</button>
         <button type="button" class="btn btn-info" routerLink="/alumnos">Regresar</button>
       </div>
     </form>

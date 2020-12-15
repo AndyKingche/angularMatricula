@@ -10,5 +10,5 @@ export interface Alumnos {
     grado?:string;
     numeromatricula?:number; 
     provincia?: {id: number};
-    cantones?: {id:number};
+    cantones?: {id:number;provincia?:{id:number}};
 }

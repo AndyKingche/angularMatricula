@@ -4,8 +4,7 @@ import { Alumnos } from '../../models/Alumnos';
 import { AlumnosService } from '../../services/alumnos.service';
 import { Provincia } from '../../models/Provincia';
 import { ProvinciaService } from '../../services/provincia.service';
-import { Select2OptionData } from 'ng-select2';
-import { Options } from 'select2';
+
 import { CantonesService } from '../../services/cantones.service';
 import { element } from 'protractor';
 import { Console } from 'console';
@@ -22,12 +21,9 @@ export class AlumnosFormComponent implements OnInit {
   @HostBinding('class') classes = 'row';
   provincias :  any=[];
   selectDivece : string;
-  public options: Options;
-  public exampleData: Array<Select2OptionData>;
   provinciaEscogida : any =[];
-
-  provincias1: Provincia[];
-
+  cantonesEscogidosaux : any = [];
+  cantonesEscogidos : any = [];
   alumnos : Alumnos ={
     id: 0,
     nombre: '',
@@ -39,21 +35,22 @@ export class AlumnosFormComponent implements OnInit {
     telefono:'',
     grado:'',
     numeromatricula:0,
-    provincia: {id: 0}
+    provincia: {id: 0},
+    cantones :{id:0,provincia:{id:0}}
   };
 
   cantones : any = [];
-  cantonesEscogidos : any = [];
+  idcanton : number = 0;
   edit: boolean = false;
   opcionseleccionado : string = '';
   numeroId : number =0;
-  
+  pe:any=null;
   constructor(private alumnosService:AlumnosService, private provinciasService: ProvinciaService, private cantonesServices: CantonesService,private router: Router,private activeroute: ActivatedRoute) {
     
    }
 
   ngOnInit() {
-    $("#provincias").select2().change(this.provinciaSelect);
+    this.cantonesEscogidosaux = null ;
     const params = this.activeroute.snapshot.params;
     console.log(params);
     if(params.id){
@@ -63,13 +60,36 @@ export class AlumnosFormComponent implements OnInit {
             console.log(res);
             this.alumnos = res; // luego ponemos eso
             this.provinciasService.getProvincia(this.alumnos.provincia.id).subscribe(
-              res => {this.provinciaEscogida =res 
-                $('.js-example-placeholder-single').select2({
-                  placeholder: this.provinciaEscogida.nombre,
+              res => {
+                this.provinciaEscogida = res 
+                $('#provincias').select2({
+                  placeholder: this.provinciaEscogida.nombre ,
                   allowClear:true
                 });
+                console.log("esta es la "+this.alumnos.cantones.provincia.id);
+                
               }
              , err=>("err en el ngOnit obteniendo la provincia escogida"+err)
+            );
+            this.idcanton = this.alumnos.cantones.id;
+            this.cantonesServices.encontrarCantones(this.alumnos.cantones.provincia.id).subscribe(
+              res => {
+                
+                this.cantones = res;
+
+                let cantonobtenido = this.cantones.find(escogidos => { 
+                  this.cantonesEscogidos.id = escogidos.id;
+                return escogidos.id === this.idcanton;
+                })
+                console.log("cantonobtenido "+cantonobtenido);
+                $('#cantones').select2({
+                   
+                  placeholder: cantonobtenido.nombre,
+                  allowClear:true
+                });
+            
+              }, err => console.log(err)
+              
             );
             this.edit = true;
 
@@ -82,28 +102,42 @@ export class AlumnosFormComponent implements OnInit {
       )
     }
     this.getAlumno();
-    $('.js-example-placeholder-single').select2({
+    $('#provincias').select2({
       placeholder: "Seleccione una opcion....",
-      allowClear:true
+      allowClear:true,
+    
     });
-    this.imprimirCantones(0);
-     
+    $('#cantones').select2({
+      placeholder: "Seleccione una opcion....",
+      allowClear:true,
+    
+    });
+   
      
   }
+  ngAfterViewInit(){
+    $('#provincias').on('change', (event) => {
+      var symbolSelected= event.target.value;
+      //you can use the selected value
+      console.log(""+symbolSelected)
+      this.cantonesServices.encontrarCantones(symbolSelected).subscribe(
+        res => {
+          this.cantones = res
+          console.log("000 "+this.cantones)
+        },err => console.error(err)
+      );
+  });
 
-  obtenerProvincias() {
-    this.provincias = this.provinciasService.getProvincias().subscribe(
-      res=>{ console.log(res);
-      },
-      err => console.log("err : "+ err)
-    );
-  }
-
+ }
+  
   
   saveNewP(){ 
-    let opcion=$('select').val();
-    this.alumnos.provincia.id = opcion;
-    console.log("id : "+ this.alumnos.provincia.id);
+    let opcionProvincia = $('#provincias').val();
+    let opcionCanton = $('#cantones').val();
+    this.alumnos.provincia.id = opcionProvincia;
+    this.alumnos.cantones.id = opcionCanton;
+    console.log("idprovincia : "+ this.alumnos.provincia.id);
+    console.log("idcanton : "+ this.alumnos.cantones.id);
         this.alumnosService.saveAlumno(this.alumnos).subscribe(
           res => {
             console.log("res : "+ res);
@@ -128,8 +162,12 @@ export class AlumnosFormComponent implements OnInit {
     }
   
       updateP(){
-        let opcion=$('select').val();
-        this.alumnos.provincia.id = opcion;
+        let opcionProvincia = $('#provincias').val();
+        let opcionCanton = $('#cantones').val();
+        this.alumnos.provincia.id = opcionProvincia;
+        this.alumnos.cantones.id = opcionCanton;
+        console.log("idprovincia : "+ this.alumnos.provincia.id);
+        console.log("idcanton : "+ this.alumnos.cantones.id);
         this.alumnosService.updateAlumno(this.alumnos.id,this.alumnos).subscribe(
           res => {
             console.log("res: "+res);
@@ -150,41 +188,22 @@ export class AlumnosFormComponent implements OnInit {
       }
 
       getAlumno(){
+        
         this.provinciasService.getProvincias().subscribe(
           res => {
-            this.provincias = res;
-          for(let x of this.provincias){
-              this.exampleData=[x];
-              console.log(this.exampleData)
-            this.options = {
-              theme: 'classic',closeOnSelect: true,width: '300'
-            }
-            }
-            
+            this.provincias = res;        
           },
           err => console.error(err)
         );
-        console.log("----"+this.provincias.id)
+        
+        
       }
-      
-      imprimirCantones(numeroId:number) {
-        this.cantonesServices.encontrarCantones(numeroId).subscribe(res => {this.cantones = res}, err => console.error(""));
-        console.log(this.provinciaSelect)
-      }
-      
-
-      provinciaSelect(){
-        let selectedProvincia = $("#provincias").val();
-        this.numeroId = Number(selectedProvincia);
-       /*  console.log(this.numeroId) */
-    }
-
-     
-    
-    
-
-    
    
-  
+
+    
+    onOptionsSelected(value:string){
+      console.log("the selected value is " + value);
+ }
+
 
 }
