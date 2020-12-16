@@ -35,17 +35,18 @@
                                             formControlName="descripcion" placeholder="Descripcion del Tipo" />
                                     </div>
                                 </div>
-                                <!-- <div formControlName="nombre" > -->
+                                <!-- <div formControlName="alumno" > -->
                                     <div   class="form-group">
                                     
                                         <label class=" input-group-text col-md-2 control-label"
                                         [attr.for]="'alumno' + i">Alumno</label>
 
-                                             <select  width="300px" height="300px" class="form-control"  [attr.id]="'id' + i"  id="id" name="id"  required >
+                                             <select  width="300px" height="300px" formControlName="alumno" class="form-control"  [attr.id]="'id' + i"  id="id" name="id"  required >
                                                  <option [attr.selected]="contadores" [attr.value]="contadores"></option>
                                                  <option  *ngFor="let alumno of alumno"  name="ids"  value="{{alumno.id}}">{{alumno.nombre}} {{alumno.apellido}}</option>   
                                                </select>      
                                 </div>
+                            
                                     
                                 <!-- </div> -->
                                 
