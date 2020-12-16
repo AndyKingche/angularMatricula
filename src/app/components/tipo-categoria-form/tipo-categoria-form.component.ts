@@ -36,11 +36,11 @@ export class TipoCategoriaFormComponent implements OnInit {
     descripcion:'',
     tipo:[{nombre:'',descripcion:'',categoria:{id:0}, alumno:{id:0}}]
   }
-  categoriaux2 : Categoria={
+  categoriaux2 : any={
     id:0,
     nombre:'',
     descripcion:'',
-    tipo:[{nombre:'',descripcion:'',categoria:{id:0}, alumno:{id:0}}]
+    tipo:[{nombre:'',descripcion:'',categoria:{id:0}, alumno:{id: 0}}]
   }
   private contador : number;
   editar: boolean = false;
@@ -50,6 +50,7 @@ export class TipoCategoriaFormComponent implements OnInit {
   conteliminar : number=0;
   alumno : any = [];
   alumnoEscogido : any = [];
+  contadores : number = 0;
   constructor(private tipoService:TipoService, private fb: FormBuilder, private categoriaService: CategoriaService, private router:Router, private activeRouter: ActivatedRoute, private alumnosService: AlumnosService) { }
 
   ngOnInit() {
@@ -60,8 +61,6 @@ export class TipoCategoriaFormComponent implements OnInit {
     nombre: '',
     descripcion: '',
     tipo: this.fb.array([]),
-    
-    
     });}
     
     const params = this.activeRouter.snapshot.params;
@@ -87,8 +86,12 @@ export class TipoCategoriaFormComponent implements OnInit {
   
 }
 ngAfterViewInit(){
-  let opcion=$('select').val();
-    console.log(opcion)
+  $('#id').on('change', (event) => {
+    var symbolSelected= event.target.value;
+    //you can use the selected value
+    console.log(""+symbolSelected)
+   
+});
 }
 
   anadirTipo() {
@@ -99,10 +102,15 @@ ngAfterViewInit(){
     (this.formCategoria.controls['tipo'] as FormArray).push(this.fb.group({
       nombre: '',
       descripcion: '',
-      alumno: this.fb.array([])
+      alumno: this.fb.group({id:this.alumno})
     }));
   
     
+  }
+  idAlumno(){
+    return this.fb.group({
+      id:0
+    });
   }
 
   imprimirTipo(categorys: Categoria){
@@ -139,21 +147,23 @@ ngAfterViewInit(){
   }
 
   saveNewCategoria() {
-    let contador = 0;
-    this.categoria = Object.assign({}, this.formCategoria.value);
-    console.table(this.formCategoria.value);
-   
-    while(contador < this.formCategoria.value.tipo.length){
-      console.log(this.categoria.tipo[contador].alumno);
-      //this.categoria.tipo[contador].alumno.id = Number(this.formCategoria.value.tipo[contador].alumno);
-      contador++;
-    }
+
+    this.categoriaux2 = Object.assign({}, this.formCategoria.value);
+    console.table(this.categoriaux2)
+    this.categoria.nombre = this.categoriaux2.nombre;
+    this.categoria.descripcion = this.categoriaux2.descripcion;
+    this.categoriaux2.tipo = this.categoriaux2.tipo.map(nuevocategoria => {  
+
+    nuevocategoria.nombre = nuevocategoria.nombre;
+    nuevocategoria.descripcion = nuevocategoria.descripcion;
+    nuevocategoria.alumno.id = Number(nuevocategoria.alumno);
     
-  //  // console.log(opcion)
+      return nuevocategoria;
+    })
     
-    
-    
-    this.categoriaService.saveCategoria(this.categoria).subscribe(res => {
+    console.log(this.categoriaux2.tipo)
+    console.log(this.contadores)
+    this.categoriaService.saveCategoria(this.categoriaux2).subscribe(res => {
     },err=>console.error(err));
 
   }
