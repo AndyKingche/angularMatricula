@@ -110,7 +110,6 @@ export class AlumnosFormComponent implements OnInit {
     $('#cantones').select2({
       placeholder: "Seleccione una opcion....",
       allowClear:true,
-    
     });
    
      
