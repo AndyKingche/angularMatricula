@@ -35,21 +35,16 @@
                                             formControlName="descripcion" placeholder="Descripcion del Tipo" />
                                     </div>
                                 </div>
-                                <!-- <div formControlName="alumno" > -->
                                     <div   class="form-group">
-                                    
+                                   
                                         <label class=" input-group-text col-md-2 control-label"
                                         [attr.for]="'alumno' + i">Alumno</label>
 
-                                             <select  width="300px" height="300px" formControlName="alumno" class="form-control"  [attr.id]="'id' + i"  id="id" name="id"  required >
-                                                 <option [attr.selected]="contadores" [attr.value]="contadores"></option>
+                                             <select  formControlName="alumno" class="js-example-placeholder-single js-states form-control"  [attr.id]="'id' + i"  id="id" name="id"  required >
+                                                 <option [attr.selected]="alumnoEscogido.id" [attr.value]="alumnoEscogido.id"></option>
                                                  <option  *ngFor="let alumno of alumno"  name="ids"  value="{{alumno.id}}">{{alumno.nombre}} {{alumno.apellido}}</option>   
-                                               </select>      
+                                               </select>                
                                 </div>
-                            
-                                    
-                                <!-- </div> -->
-                                
                             </div>
                             <div class="row align-items-center">
                                 <button type="button" class="btn btn-danger pull-right"
