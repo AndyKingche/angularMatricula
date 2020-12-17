@@ -42,10 +42,10 @@
                                         <label class=" input-group-text col-md-2 control-label"
                                         [attr.for]="'alumno' + i">Alumno</label>
 
-                                             <select  formControlName="alumno" class="js-example-placeholder-single js-states form-control"  [attr.id]="'id' + i"  id="id" name="id"  required >
-                                                 <option [attr.selected]="alumnoEscogido.id" [attr.value]="alumnoEscogido.id"></option>
+                                             <ng-select2   data-tags="true" width="100%" style="width: 100%;" formControlName="alumno" class="js-example-placeholder-single js-states form-control"  [attr.id]="'id' + i" [placeholder]="mensage[i]"   id="id" name="id" required >
+                                                 <option  [attr.selected]="alumnoEscogido.id" [attr.value]="alumnoEscogido.id"></option>
                                                  <option  *ngFor="let alumno of alumno"  name="ids"  value="{{alumno.id}}">{{alumno.nombre}} {{alumno.apellido}}</option>   
-                                               </select>                
+                                               </ng-select2>                
                                 </div>
                             </div>
                             <div class="row align-items-center">
